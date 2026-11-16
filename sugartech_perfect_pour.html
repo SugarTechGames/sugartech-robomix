@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SugarTech — Perfect Pour</title>
+<style>
+:root{--pink:#ff2abb;--cyan:#00dcff;--purple:#a34dff;--bg:#070611;--text:#fff7ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:16px;background:radial-gradient(ellipse at 50% 0%,#351044 0%,#100b20 43%,#05050d 100%);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+.wrap{max-width:900px;margin:auto}
+header{text-align:center;margin:5px 0 15px}
+.logo{font-weight:1000;font-size:clamp(29px,5vw,45px);letter-spacing:2px;text-shadow:0 0 9px var(--pink),0 0 22px var(--pink)}
+.logo span{color:var(--pink)}
+.sub{font-size:11px;letter-spacing:4px;color:#9ceeff;margin-top:5px}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:13px 0}
+.stat{min-width:105px;text-align:center;padding:8px 15px;background:#100d22;border:1px solid #984bdf;border-radius:12px;box-shadow:0 0 12px #a44dff44}
+.stat small{display:block;color:#bdb7d7;font-size:9px;letter-spacing:2px}.stat strong{display:block;font-size:23px;margin-top:2px;text-shadow:0 0 9px var(--cyan)}
+.panel{border:1px solid var(--cyan);border-radius:19px;padding:15px;background:#090817ee;box-shadow:0 0 18px #00dfff44,inset 0 0 18px #a44dff22}
+.order{text-align:center;margin:0 0 8px}
+.order .eyebrow{color:var(--cyan);font-size:10px;font-weight:bold;letter-spacing:3px}
+.order h2{font-size:clamp(20px,4vw,29px);margin:6px 0 3px;color:#ff91df;text-shadow:0 0 10px #ff29b966}
+.order p{font-size:12px;color:#c9c3dc;margin:0}
+.stage{height:315px;position:relative;overflow:hidden;border-radius:15px;background:radial-gradient(ellipse at 50% 75%,#21143d 0%,#0b0b1b 55%,#070713 100%);border:1px solid #59358c;margin-top:12px}
+.stage:before{content:"";position:absolute;left:8%;right:8%;bottom:26px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--pink),transparent);box-shadow:0 0 12px var(--cyan)}
+.stage:after{content:"";position:absolute;left:15%;right:15%;bottom:16px;height:1px;background:#a34dff66}
+.glass-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.glass-svg{height:265px;width:250px;overflow:visible;filter:drop-shadow(0 0 12px #00dcff55)}
+.target-label{position:absolute;right:calc(50% - 155px);top:50%;transform:translateY(-50%);font-size:10px;letter-spacing:1px;color:#9ceeff;text-align:left;white-space:nowrap}
+.target-label:before{content:"";position:absolute;right:100%;top:50%;width:52px;border-top:2px dashed #00dcff;margin-right:8px;filter:drop-shadow(0 0 5px #00dcff)}
+.readout{position:absolute;left:15px;top:15px;padding:8px 11px;border:1px solid #a34dff;border-radius:10px;background:#100d22dd;min-width:100px}
+.readout small{display:block;font-size:9px;color:#bdb7d7;letter-spacing:1.5px}.readout strong{font-size:19px;color:#fff}
+.flow-indicator{position:absolute;right:15px;top:15px;text-align:right;color:#ff9ce4;font-size:10px;letter-spacing:1px}
+.stream{position:absolute;left:50%;top:12px;width:8px;height:95px;transform:translateX(-50%);border-radius:8px;background:linear-gradient(180deg,#fff,#ff9ce4,var(--drink));box-shadow:0 0 12px var(--drink);opacity:0;transition:opacity .1s}
+.stream.active{opacity:.95;animation:streamPulse .18s infinite alternate}
+@keyframes streamPulse{from{transform:translateX(-50%) scaleX(.8)}to{transform:translateX(-50%) scaleX(1.25)}}
+.control-box{padding:15px 17px;border-radius:15px;background:linear-gradient(135deg,#17102d,#100d22);border:1px solid #b44ee9;box-shadow:0 0 15px #a44dff33;margin-top:14px}
+.control-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;letter-spacing:1.5px;color:#d8d1eb}
+.control-head strong{font-size:17px;color:#ff91df;text-shadow:0 0 9px #ff29b966}
+input[type=range]{appearance:none;-webkit-appearance:none;width:100%;height:13px;border-radius:20px;margin:20px 0 13px;outline:none;cursor:grab;touch-action:pan-y;background:linear-gradient(90deg,#00dcff 0%,#a34dff 50%,#ff2abb 100%);box-shadow:0 0 12px #a44dff66}
+input[type=range]:active{cursor:grabbing}
+input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:31px;height:31px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ffb1e7 35%,#ff2abb 75%);border:3px solid #fff;box-shadow:0 0 0 4px #ff2abb33,0 0 17px #ff2abb}
+input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ffb1e7 35%,#ff2abb 75%);border:3px solid #fff;box-shadow:0 0 0 4px #ff2abb33,0 0 17px #ff2abb}
+.scale{display:flex;justify-content:space-between;font-size:9px;color:#bcb4d4;letter-spacing:.5px}
+.pour-caption{text-align:center;font-size:10px;color:#aaa3c4;margin-top:12px}
+.slider-control.pouring{border-color:#ff45c9;box-shadow:0 0 22px #ff28b966}
+.slider-control.disabled{opacity:.5}
+.feedback{text-align:center;min-height:26px;margin-top:12px;font-weight:bold;color:#9ceeff;font-size:13px}
+.actions{display:flex;justify-content:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.action{border:0;border-radius:30px;padding:11px 24px;font-weight:900;letter-spacing:1px;cursor:pointer;color:#090614;background:linear-gradient(90deg,#ff32bd,#ff91df);box-shadow:0 0 15px #ff28b966}
+.action.alt{background:transparent;color:#9ceeff;border:1px solid var(--cyan);box-shadow:0 0 10px #00dfff44}
+.help{text-align:center;color:#a9a3c2;font-size:10px;line-height:1.5;margin:12px 4px 2px}
+.overlay{position:fixed;inset:0;background:#03030add;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
+.modal{max-width:430px;width:100%;text-align:center;padding:28px;border:1px solid var(--pink);border-radius:20px;background:#100d22;box-shadow:0 0 30px #ff28b966}
+.modal h2{margin:0 0 8px;color:#ff8ddd;font-size:30px}.modal p{color:#d7d3e8;line-height:1.5}
+@media(max-width:600px){body{padding:8px}.panel{padding:9px}.stage{height:280px}.glass-svg{height:235px;width:215px}.target-label{right:calc(50% - 137px);font-size:8px}.target-label:before{width:30px}.stat{min-width:75px;padding:7px 9px}.stat strong{font-size:19px}.control-box{padding:13px 12px}input[type=range]{height:15px}input[type=range]::-webkit-slider-thumb{width:35px;height:35px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="logo">SUGAR<span>TECH</span></div><div class="sub">PERFECT POUR · PRECISION BAR</div></header>
+<div class="stats">
+ <div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
+ <div class="stat"><small>TIME</small><strong id="time">60</strong></div>
+ <div class="stat"><small>DRINKS MADE</small><strong id="drinks">0</strong></div>
+ <div class="stat"><small>SPILLS LEFT</small><strong id="lives">3</strong></div>
+</div>
+<main class="panel">
+ <div class="order"><div class="eyebrow">NEXT GLASS</div><h2 id="glassName">THE HIGHBALL</h2><p id="drinkName">Blue Apple · Fill to the glowing line</p></div>
+ <div class="stage" id="stage">
+  <div class="readout"><small>FILL LEVEL</small><strong id="fillText">0%</strong></div>
+  <div class="flow-indicator" id="flowText">POUR SPEED<br><b>MEDIUM</b></div>
+  <div class="stream" id="stream"></div>
+  <div class="glass-wrap" id="glassWrap"></div>
+  <div class="target-label" id="targetLabel">TARGET</div>
+ </div>
+ <div class="control-box slider-control" id="sliderControl">
+  <div class="control-head"><span>TOUCH & SLIDE TO POUR</span><strong id="speedValue">50%</strong></div>
+  <input id="speed" type="range" min="1" max="100" value="50" aria-label="Pour speed">
+  <div class="scale"><span>◀ SLOW & SAFE</span><span>FAST & RISKY ▶</span></div>
+  <div class="pour-caption" id="pourCaption">Touch the slider to start pouring. Keep moving to control the speed; release to stop.</div>
+ </div>
+ <div class="feedback" id="feedback">Press START SHIFT to begin!</div>
+ <div class="actions"><button class="action" id="startBtn" onclick="startGame()">START SHIFT</button><button class="action alt" onclick="resetGame()">RESET</button></div>
+ <div class="help">Fill as close as possible to the target line. Faster pours earn bigger bonuses, but overshooting costs a spill!</div>
+</main>
+</div>
+<div class="overlay" id="overlay"><div class="modal"><h2 id="endTitle">SHIFT COMPLETE!</h2><p id="endText"></p><button class="action" onclick="startGame()">PLAY AGAIN</button></div></div>
+<script>
+const drinks=[
+ {name:'BLUE APPLE',color:'#22caff',dark:'#0877b9'},
+ {name:'PEACH CRANBERRY',color:'#ff815c',dark:'#bd3d68'},
+ {name:'STRAWBERRY CHIP',color:'#ff4f9f',dark:'#b91e70'},
+ {name:'PISTACHIO PIXEL',color:'#b5df49',dark:'#688d26'},
+ {name:'VANILLA CLOUD',color:'#ffe0a0',dark:'#c58c4b'},
+ {name:'CHOCO BYTE',color:'#a96a48',dark:'#60321f'}
+];
+const glasses=[
+ {name:'THE HIGHBALL',shape:'highball',capacity:100,top:31,bottom:210,width:76},
+ {name:'THE MARTINI',shape:'martini',capacity:78,top:55,bottom:177,width:150},
+ {name:'THE COUPE',shape:'coupe',capacity:85,top:68,bottom:178,width:155},
+ {name:'THE HURRICANE',shape:'hurricane',capacity:125,top:32,bottom:210,width:115},
+ {name:'THE ROCKS',shape:'rocks',capacity:95,top:92,bottom:210,width:116},
+ {name:'THE TALL TULIP',shape:'tulip',capacity:115,top:32,bottom:210,width:120}
+];
+const $=id=>document.getElementById(id);
+let score=0,timeLeft=60,drinksMade=0,lives=3,playing=false,pouring=false,fill=0,target=0,glass=null,drink=null,roundDone=false,timer=null,raf=null,last=0,roundStart=0,holdStart=0,spillPenalty=0;
+function rand(a){return a[Math.floor(Math.random()*a.length)]}
+function glassPath(g){
+ const s=g.shape;
+ if(s==='highball')return 'M88 28 L162 28 L151 211 Q125 224 99 211 Z';
+ if(s==='martini')return 'M45 43 L205 43 L132 126 L132 191 L166 197 L166 207 L84 207 L84 197 L118 191 L118 126 Z';
+ if(s==='coupe')return 'M48 55 Q125 170 202 55 Q195 122 137 135 L137 191 L164 197 L164 207 L86 207 L86 197 L113 191 L113 135 Q55 122 48 55 Z';
+ if(s==='hurricane')return 'M85 28 Q72 61 90 91 Q101 112 79 151 Q64 181 93 211 L157 211 Q186 181 171 151 Q149 112 160 91 Q178 61 165 28 Z';
+ if(s==='rocks')return 'M65 88 L185 88 L175 211 Q125 222 75 211 Z';
+ return 'M85 28 Q56 61 75 105 Q88 139 69 173 Q66 200 92 211 L158 211 Q184 200 181 173 Q162 139 175 105 Q194 61 165 28 Z';
+}
+function liquidPath(g,pct){
+ const bottom=211,top=32,level=bottom-(bottom-top)*pct/100;
+ const s=g.shape;
+ if(s==='martini')return `M${125-80*pct/100} ${level} L${125+80*pct/100} ${level} L125 126 Z`;
+ if(s==='coupe')return `M${125-76*pct/100} ${level} Q125 ${Math.min(170,level+45)} ${125+76*pct/100} ${level} L125 135 Z`;
+ if(s==='highball')return `M${90+(level-28)*.06} ${level} L${160-(level-28)*.06} ${level} L151 211 Q125 224 99 211 Z`;
+ if(s==='rocks')return `M${65+(level-88)*.08} ${level} L${185-(level-88)*.08} ${level} L175 211 Q125 222 75 211 Z`;
+ if(s==='hurricane')return `M${85+(level-28)*.12} ${level} L${165-(level-28)*.12} Q178 61 160 91 Q149 112 171 151 Q186 181 157 211 L93 211 Q64 181 79 151 Q101 112 90 91 Q72 61 85 28 Z`;
+ return `M${85+(level-28)*.12} ${level} L${165-(level-28)*.12} Q194 61 175 105 Q162 139 181 173 Q184 200 158 211 L92 211 Q66 200 69 173 Q88 139 75 105 Q56 61 85 28 Z`;
+}
+function renderGlass(){
+ const d=drink, g=glass, p=Math.min(100,fill);
+ const path=glassPath(g), liquid=liquidPath(g,p);
+ const topY=211-179*target/100;
+ const svg=`<svg class="glass-svg" viewBox="0 0 250 245" role="img" aria-label="${g.name}">
+ <defs><linearGradient id="glassGrad" x1="0" x2="1"><stop offset="0" stop-color="#bffaff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#bffaff" stop-opacity=".3"/></linearGradient>
+ <linearGradient id="liq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${d.color}"/><stop offset="1" stop-color="${d.dark}"/></linearGradient>
+ <clipPath id="clip"><path d="${path}"/></clipPath></defs>
+ <g clip-path="url(#clip)">
+ <path d="${liquid}" fill="url(#liq)" opacity=".95"/>
+ <path d="M0 ${211-179*p/100} Q125 ${205-179*p/100} 250 ${211-179*p/100}" fill="none" stroke="#fff9" stroke-width="3"/>
+ <path d="M0 ${topY} H250" stroke="#00e5ff" stroke-width="2.5" stroke-dasharray="6 5" opacity=".95"/>
+ </g>
+ <path d="${path}" fill="url(#glassGrad)" stroke="#d9faff" stroke-width="4" stroke-linejoin="round"/>
+ <path d="${path}" fill="none" stroke="${d.color}" stroke-width="1.5" opacity=".8"/>
+ <path d="M${g.shape==='martini'?125:91} 38 L${g.shape==='martini'?125:98} 170" stroke="#fff" stroke-width="3" opacity=".35"/>
+ <text x="125" y="237" fill="#baf8ff" font-size="9" text-anchor="middle" letter-spacing="2">${g.name}</text>
+ </svg>`;
+ $('glassWrap').innerHTML=svg;
+ $('targetLabel').style.top=`${Math.max(15,Math.min(83,50+(50-target)*1.25))}%`;
+ $('targetLabel').textContent=`TARGET ${target}%`;
+ $('stage').style.setProperty('--drink',d.color);
+ $('fillText').textContent=Math.round(fill)+'%';
+}
+function newRound(){
+ glass=rand(glasses);drink=rand(drinks);fill=0;roundDone=false;pouring=false;
+ // Keep target safely below the rim and vary the required amount by glass.
+ target=Math.floor(62+Math.random()*25);
+ $('glassName').textContent=glass.name;
+ $('drinkName').textContent=drink.name+' · Fill to the glowing line';
+ $('sliderControl').classList.remove('disabled');
+ $('stream').classList.remove('active');
+ renderGlass();$('feedback').textContent='Adjust your speed, then hold to pour!';
+}
+function changeSpeed(v){
+ $('speedValue').textContent=v+'%';
+ const label=v<30?'SLOW':v<70?'MEDIUM':'FAST';
+ $('flowText').innerHTML='POUR SPEED<br><b>'+label+'</b>';
+}
+function startPour(e){
+ if(!playing||roundDone||pouring)return;
+ pouring=true;holdStart=performance.now();
+ $('sliderControl').classList.add('pouring');$('stream').classList.add('active');
+ $('feedback').textContent='Pouring… release when you reach the target!';
+}
+function stopPour(){
+ if(!pouring)return;
+ pouring=false;$('sliderControl').classList.remove('pouring');$('stream').classList.remove('active');
+ if(!playing||roundDone)return;
+ const diff=fill-target;
+ if(diff>0){
+  const over=diff;
+  if(over<=4)finishRound('PERFECT POUR!',Math.max(5,Math.round(60+Number($('speed').value)*.7)),true);
+  else if(over<=10)finishRound('A LITTLE OVERFILLED!',Math.max(0,Math.round(35-over*2+Number($('speed').value)*.25)),true);
+  else spill('OVERFLOW! Too much mocktail!');
+ }else{
+  const under=target-fill;
+  if(under<=4)finishRound('PERFECT POUR!',Math.max(5,Math.round(60+Number($('speed').value)*.7)),true);
+  else if(under<=12)finishRound('A BIT UNDERFILLED!',Math.max(5,Math.round(35-under*2+Number($('speed').value)*.25)),true);
+  else finishRound('UNDERFILLED!',Math.max(0,Math.round(10-under)),false);
+ }
+}
+function finishRound(message,base,success){
+ if(roundDone)return;roundDone=true;
+ const speed=Number($('speed').value);
+ const speedBonus=Math.round(speed*.45);
+ const timeBonus=Math.max(0,Math.round((60-timeLeft)*0.1));
+ const points=Math.max(0,base+speedBonus+timeBonus);
+ score+=points;drinksMade++;
+ $('feedback').textContent=`${success?'✓':'•'} ${message} +${points} POINTS`;
+ updateStats();
+ $('sliderControl').classList.add('disabled');
+ setTimeout(()=>{if(playing){if(timeLeft>0)newRound();}},850);
+}
+function spill(message){
+ if(roundDone)return;roundDone=true;lives--;spillPenalty++;
+ $('feedback').textContent='✕ '+message+' · -1 SPILL';
+ updateStats();$('sliderControl').classList.add('disabled');
+ if(lives<=0){setTimeout(endGame,600);}
+ else setTimeout(()=>{if(playing)newRound();},900);
+}
+function updateStats(){
+ $('score').textContent=score;$('time').textContent=timeLeft;
+ $('drinks').textContent=drinksMade;$('lives').textContent=lives;
+}
+function frame(now){
+ if(!playing)return;
+ if(!last)last=now;const dt=Math.min((now-last)/1000,.05);last=now;
+ if(pouring&&!roundDone){
+  const speed=Number($('speed').value);
+  // 1–100 slider maps to a deliberately wide range: slow is gentle, fast is risky.
+  // Stronger speed curve: the minimum is still controllable, while the maximum fills a glass very quickly.
+  const rate=.5+(speed/100)*3.5;
+  fill+=rate*dt*12;
+  if(fill>=100){fill=100;renderGlass();spill('THE GLASS OVERFLOWED!');}
+  else renderGlass();
+ }
+ raf=requestAnimationFrame(frame);
+}
+function startGame(){
+ stop();score=0;timeLeft=60;drinksMade=0;lives=3;spillPenalty=0;playing=true;last=0;
+ updateStats();$('overlay').style.display='none';$('startBtn').textContent='SHIFT IN PROGRESS';
+ $('sliderControl').classList.remove('disabled');
+ newRound();raf=requestAnimationFrame(frame);
+ timer=setInterval(()=>{if(!playing)return;timeLeft--;$('time').textContent=timeLeft;if(timeLeft<=0)endGame();},1000);
+}
+function stop(){if(raf)cancelAnimationFrame(raf);clearInterval(timer);raf=null;timer=null;pouring=false;}
+function endGame(){
+ playing=false;stop();$('sliderControl').classList.add('disabled');$('startBtn').textContent='START SHIFT';
+ $('stream').classList.remove('active');
+ $('endTitle').textContent='SHIFT COMPLETE!';
+ $('endText').textContent=`You made ${drinksMade} drinks, scored ${score} points and had ${spillPenalty} spills. Can you beat your score with a faster pour?`;
+ $('overlay').style.display='flex';
+}
+function resetGame(){
+ playing=false;stop();score=0;timeLeft=60;drinksMade=0;lives=3;fill=0;target=0;roundDone=true;
+ updateStats();$('time').textContent='60';$('startBtn').textContent='START SHIFT';
+ $('sliderControl').classList.add('disabled');$('overlay').style.display='none';$('feedback').textContent='Press START SHIFT to begin!';
+ $('glassWrap').innerHTML='';$('glassName').textContent='READY?';$('drinkName').textContent='Your next glass is waiting.';
+ $('fillText').textContent='0%';$('stream').classList.remove('active');
+}
+const speedSlider=$('speed');
+speedSlider.addEventListener('pointerdown',e=>{
+ if(!playing||roundDone)return;
+ startPour(e);
+});
+speedSlider.addEventListener('pointerup',stopPour);
+speedSlider.addEventListener('pointercancel',stopPour);
+speedSlider.addEventListener('lostpointercapture',stopPour);
+speedSlider.addEventListener('input',e=>changeSpeed(e.target.value));
+speedSlider.addEventListener('change',()=>{if(!pouring)stopPour();});
+document.addEventListener('pointerup',stopPour);
+document.addEventListener('pointercancel',stopPour);
+changeSpeed(speedSlider.value);resetGame();
+</script></body></html>
