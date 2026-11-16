@@ -79,7 +79,7 @@ button{font:inherit}
   <p class="sub">The robot is ready. Can you mix the perfect mocktail?</p>
   <div class="game">
     <section class="panel">
-      <div class="panel-head"><div class="eyebrow">YOUR ORDERS</div><div class="stats"><div class="stat"><small>SCORE</small><b id="score">0</b></div><div class="stat"><small>TIME</small><b id="time">60</b></div></div></div>
+      <div class="panel-head"><div class="eyebrow">YOUR ORDERS</div><div class="stats"><div class="stat"><small>SCORE</small><b id="score">0</b></div><div class="stat"><small>DRINKS</small><b id="drinks">0</b></div><div class="stat"><small>TIME</small><b id="time">60</b></div></div></div>
       <div class="customer"><div class="avatar" id="customerAvatar">ST</div><div><strong id="customerTitle">A customer is waiting!</strong><p id="customerText">Make the recipe exactly as requested to earn points.</p></div></div>
       <div class="recipe"><div class="recipe-title"><span id="recipeName">FIRST ORDER</span><span id="recipeCount">0 / 3</span></div><div class="recipe-list" id="recipeList"></div></div>
       <p class="ingredients-title">PICK YOUR INGREDIENTS</p>
@@ -126,11 +126,11 @@ button{font:inherit}
 </svg></div><div class="glass" id="glass"><svg viewBox="0 0 70 75" aria-hidden="true"><path d="M12 10 H58 L48 65 H22Z" fill="#ff4db4" fill-opacity=".35" stroke="#ffc5e8" stroke-width="3"/><path d="M17 31 H53 L48 62 H22Z" fill="#ff4fae"/><path d="M35 65 V72 M23 73 H47" stroke="#ffc5e8" stroke-width="3" stroke-linecap="round"/><path d="M39 10 L52 1" stroke="#6fffd2" stroke-width="4" stroke-linecap="round"/></svg></div><div class="lab-caption" id="labCaption">AWAITING INGREDIENTS</div></div>
       <div class="status" id="status">Choose the ingredients shown in the order, then press Mix it!</div>
       <div class="progress"><span id="progressBar"></span></div>
-      <div class="footer"><span>3 ORDERS • UP TO 300 POINTS • 60 SECONDS</span><span>MADE WITH ✦ SUGARTECH</span></div>
+      <div class="footer"><span>UNLIMITED ORDERS • BEAT THE 60-SECOND CLOCK</span><span>MADE WITH ✦ SUGARTECH</span></div>
     </section>
   </div>
 </div>
-<div class="overlay" id="startOverlay"><div class="modal"><div class="big"><span class="modal-mark">ST</span></div><div class="eyebrow">SUGARTECH ARCADE PRESENTS</div><h2>Ready to <span style="color:#ff4db4">RoboMix</span>?</h2><p>Three customers. Three recipes. Sixty seconds.<br>Pick three ingredients for each mocktail. Earn points for every ingredient you get right!</p><button class="primary" id="startBtn">START MIXING →</button></div></div>
+<div class="overlay" id="startOverlay"><div class="modal"><div class="big"><span class="modal-mark">ST</span></div><div class="eyebrow">SUGARTECH ARCADE PRESENTS</div><h2>Ready to <span style="color:#ff4db4">RoboMix</span>?</h2><p>As many customers as you can. Sixty seconds on the clock!<br>Pick three ingredients for each mocktail and earn points for every ingredient you get right.</p><button class="primary" id="startBtn">START MIXING →</button></div></div>
 <div class="overlay hidden" id="endOverlay"><div class="modal"><div class="big" id="endEmoji">★</div><div class="eyebrow">SHIFT COMPLETE</div><h2 id="endTitle">Great mixing!</h2><p id="endText"></p><button class="primary" id="againBtn">PLAY AGAIN ↻</button></div></div>
 <script>
 const ingredients=[
@@ -150,8 +150,8 @@ const customerRequests=[
  "asked for a colorful SugarTech special."
 ];
 const recipeNames=["PINK PARADISE","PURPLE SPARK","TROPICAL GLOW","BERRY BLAST","SUNSET SPLASH","MELON MAGIC","CITRUS KISS","PEACHY DREAM","ISLAND FIZZ","STRAWBERRY CLOUD"];
-let recipes=[];
-let score=0,round=0,selected=[],timeLeft=60,timer=null,locked=false,finished=false;
+let currentOrder=null;
+let score=0,drinksMade=0,selected=[],timeLeft=60,timer=null,locked=false,finished=false;
 function randomItem(list){return list[Math.floor(Math.random()*list.length)]}
 function makeRandomOrder(){
  const shuffled=[...ingredients].sort(()=>Math.random()-.5);
@@ -161,16 +161,6 @@ function makeRandomOrder(){
   request:randomItem(customerRequests),
   items:shuffled.slice(0,3).map(x=>x.id)
  };
-}
-function generateOrders(){
- recipes=[];
- const usedCustomers=new Set();
- for(let i=0;i<3;i++){
-  let order=makeRandomOrder(),attempts=0;
-  while(usedCustomers.has(order.customerName)&&attempts<20){order=makeRandomOrder();attempts++}
-  usedCustomers.add(order.customerName);
-  recipes.push(order);
- }
 }
 const $=id=>document.getElementById(id);
 function ingredientById(id){return ingredients.find(x=>x.id===id)}
@@ -192,23 +182,33 @@ function ingredientIcon(id){
 function mocktailIcon(){
  return '<svg class="drink-icon" viewBox="0 0 70 78" aria-hidden="true"><path d="M12 8 H58 L49 57 H21Z" fill="#ff4db4" fill-opacity=".35" stroke="#ffc5e8" stroke-width="3"/><path d="M17 29 H53 L48 54 H22Z" fill="#ff4fae"/><path d="M35 57 V70 M23 72 H47" stroke="#ffc5e8" stroke-width="3" stroke-linecap="round"/><path d="M42 8 L54 1" stroke="#6fffd2" stroke-width="4" stroke-linecap="round"/></svg>';
 }
+let previousIngredientOrder=[];
 function renderIngredients(){
  $("ingredients").innerHTML="";
- ingredients.forEach(item=>{
+ let order=[...ingredients];
+ // Shuffle the ingredient buttons for each round and avoid repeating
+ // the exact same arrangement as the previous round.
+ for(let attempt=0;attempt<10;attempt++){
+  order.sort(()=>Math.random()-.5);
+  if(order.map(x=>x.id).join("|")!==previousIngredientOrder.join("|"))break;
+ }
+ previousIngredientOrder=order.map(x=>x.id);
+ order.forEach(item=>{
   const btn=document.createElement("button");btn.className="ingredient";btn.type="button";btn.dataset.id=item.id;
   btn.innerHTML=`<span class="emoji">${ingredientIcon(item.id)}</span><b>${item.name}</b>`;
   btn.addEventListener("click",()=>toggleIngredient(item.id));$("ingredients").appendChild(btn);
  });
 }
 function renderOrder(){
- const r=recipes[round];selected=[];
+ renderIngredients();
+ const r=currentOrder;selected=[];
  $("customerAvatar").textContent=r.customerName.slice(0,1).toUpperCase();$("customerTitle").textContent="Order for "+r.customerName;
  $("customerText").textContent=r.customerName+" "+r.request;$("recipeName").textContent=r.name;
  $("recipeCount").textContent="0 / 3";
  $("recipeList").innerHTML=r.items.map(id=>`<span class="chip" data-recipe="${id}">${ingredientIcon(id)} ${ingredientById(id).name}</span>`).join("");
  $("ingredients").querySelectorAll("button").forEach(b=>{b.disabled=false;b.classList.remove("selected")});
  $("mixBtn").disabled=true;$("status").className="status";$("status").textContent="Choose 3 ingredients, then press Mix it! Each correct match earns points.";
- $("labCaption").textContent="AWAITING INGREDIENTS";$("glass").innerHTML=mocktailIcon();$("progressBar").style.width=(round/3*100)+"%";
+ $("labCaption").textContent="AWAITING INGREDIENTS";$("glass").innerHTML=mocktailIcon();$("progressBar").style.width="0%";
 }
 function toggleIngredient(id){
  if(locked||finished||selected.includes(id)||selected.length>=3)return;
@@ -216,16 +216,16 @@ function toggleIngredient(id){
  const btn=$("ingredients").querySelector(`[data-id="${id}"]`);btn.classList.add("selected");
  $("recipeList").querySelectorAll(".chip").forEach(chip=>{if(selected.includes(chip.dataset.recipe))chip.classList.add("done")});
  $("recipeCount").textContent=selected.length+" / 3";
- $("mixBtn").disabled=selected.length!==3;
+ $("mixBtn").disabled=selected.length!==3;$("progressBar").style.width=(selected.length/3*100)+"%";
 }
-function clearSelection(){if(locked)return;selected=[];$("ingredients").querySelectorAll("button").forEach(b=>b.classList.remove("selected"));$("recipeList").querySelectorAll(".chip").forEach(c=>c.classList.remove("done"));$("recipeCount").textContent="0 / 3";$("mixBtn").disabled=true}
+function clearSelection(){if(locked)return;selected=[];$("ingredients").querySelectorAll("button").forEach(b=>b.classList.remove("selected"));$("recipeList").querySelectorAll(".chip").forEach(c=>c.classList.remove("done"));$("recipeCount").textContent="0 / 3";$("mixBtn").disabled=true;$("progressBar").style.width="0%"}
 function mix(){
  if(selected.length!==3||locked||finished)return;locked=true;$("mixBtn").disabled=true;$("robot").classList.add("mix");$("labCaption").textContent="ROBOT MIXING...";$("status").textContent="Whirr... pour... mixing...";$("glass").innerHTML=mocktailIcon();
  setTimeout(()=>{
   $("robot").classList.remove("mix");$("glass").innerHTML=mocktailIcon();$("labCaption").textContent="MOCKTAIL COMPLETE!";
-  const correctCount=selected.filter(id=>recipes[round].items.includes(id)).length;
+  const correctCount=selected.filter(id=>currentOrder.items.includes(id)).length;
   const points=[0,30,60,100][correctCount];
-  score+=points;$("score").textContent=score;
+  score+=points;drinksMade++;$("score").textContent=score;$("drinks").textContent=drinksMade;
   if(correctCount===3){
    $("status").className="status good";
    $("status").textContent="Perfect recipe! 3/3 ingredients correct — +100 points. Your customer loves it!";
@@ -237,20 +237,18 @@ function mix(){
    $("status").textContent="No matching ingredients this time — 0 points. The next customer is waiting!";
   }
   $("ingredients").querySelectorAll("button").forEach(b=>b.disabled=true);
-  $("progressBar").style.width=((round+1)/3*100)+"%";
-  setTimeout(()=>{round++;locked=false;if(round>=recipes.length||timeLeft<=0)endGame();else renderOrder()},1350);
+  setTimeout(()=>{locked=false;if(timeLeft<=0){endGame();return}currentOrder=makeRandomOrder();renderOrder()},850);
  },1100);
 }
 function endGame(){
  finished=true;clearInterval(timer);
- $("endEmoji").textContent=score===300?"★":score>=100?"✦":"ST";
- $("endTitle").textContent=score===300?"Master Mixologist!":score>=100?"Nice mixing!":"Shift complete!";
- $("endText").innerHTML=`You scored <b style="color:#ff78c9">${score} / 300</b> points.<br>${score===300?"Every mocktail was a perfect match!":score>=100?"The SugarTech robot is proud of you. Keep practicing!":"The robot is ready for another round. Give it another try!"}`;
+ $("endEmoji").textContent=drinksMade>=10?"★":drinksMade>=5?"✦":"ST";
+ $("endTitle").textContent=drinksMade>=10?"Master Mixologist!":drinksMade>=5?"Nice mixing!":"Shift complete!";
+ $("endText").innerHTML=`You made <b style="color:#ff78c9">${drinksMade} drink${drinksMade===1?"":"s"}</b> and scored <b style="color:#ff78c9">${score} points</b>.<br>${drinksMade>=10?"Incredible speed! The SugarTech robot is impressed.":drinksMade>=5?"Great work keeping the orders moving!":"The robot is ready for another shift. See how many more you can mix!"}`;
  $("endOverlay").classList.remove("hidden");
 }
 function startGame(){
- generateOrders();
- score=0;round=0;timeLeft=60;finished=false;locked=false;$("score").textContent="0";$("time").textContent="60";
+ score=0;drinksMade=0;timeLeft=60;finished=false;locked=false;currentOrder=makeRandomOrder();$("score").textContent="0";$("drinks").textContent="0";$("time").textContent="60";
  $("startOverlay").classList.add("hidden");$("endOverlay").classList.add("hidden");renderOrder();
  clearInterval(timer);timer=setInterval(()=>{timeLeft--;$("time").textContent=timeLeft;if(timeLeft<=0){if(!locked)endGame();else clearInterval(timer)}},1000);
 }
