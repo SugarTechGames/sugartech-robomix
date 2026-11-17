@@ -14,6 +14,9 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;ba
 .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.12em;font-size:14px}
 .brand-mark{width:35px;height:35px;border:1px solid #ff68c7;border-radius:11px;display:grid;place-items:center;color:#fff;box-shadow:0 0 18px #ff2fa866;background:#ff2fa81c;font-size:19px}
 .pill{border:1px solid #ff5fc455;background:#ff2fa812;color:#ffb4df;border-radius:99px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.12em}
+.music-toggle{border:1px solid #ff68c7;background:#ff2fa81c;color:#ffd4ed;border-radius:99px;padding:8px 12px;font-size:10px;font-weight:900;letter-spacing:.1em;cursor:pointer;white-space:nowrap;box-shadow:0 0 14px #ff2fa822}
+.music-toggle:hover{background:#ff2fa833;border-color:#ff9bd4}
+
 h1{font-size:clamp(36px,7vw,62px);line-height:.98;letter-spacing:-.055em;margin:0;text-align:center;text-shadow:0 0 24px #ff2fa866}
 h1 span{color:var(--pink)}
 .sub{text-align:center;color:#d6c4e5;margin:12px 0 26px;font-size:14px}
@@ -74,7 +77,7 @@ button{font:inherit}
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><div class="brand"><div class="brand-mark">✦</div> SUGARTECH</div><div class="pill">ARCADE // 01</div></div>
+  <div class="top"><div class="brand"><div class="brand-mark">✦</div> SUGARTECH</div><div style="display:flex;align-items:center;gap:9px"><button class="music-toggle" id="musicBtn" type="button">♫ MUSIC: ON</button><div class="pill">ARCADE // 01</div></div></div>
   <h1>ROBO<span>MIX</span></h1>
   <p class="sub">The robot is ready. Can you mix the perfect mocktail?</p>
   <div class="game">
@@ -246,12 +249,66 @@ function endGame(){
  $("endTitle").textContent=drinksMade>=10?"Master Mixologist!":drinksMade>=5?"Nice mixing!":"Shift complete!";
  $("endText").innerHTML=`You made <b style="color:#ff78c9">${drinksMade} drink${drinksMade===1?"":"s"}</b> and scored <b style="color:#ff78c9">${score} points</b>.<br>${drinksMade>=10?"Incredible speed! The SugarTech robot is impressed.":drinksMade>=5?"Great work keeping the orders moving!":"The robot is ready for another shift. See how many more you can mix!"}`;
  $("endOverlay").classList.remove("hidden");
+ stopMusic();
 }
 function startGame(){
  score=0;drinksMade=0;timeLeft=60;finished=false;locked=false;currentOrder=makeRandomOrder();$("score").textContent="0";$("drinks").textContent="0";$("time").textContent="60";
  $("startOverlay").classList.add("hidden");$("endOverlay").classList.add("hidden");renderOrder();
+ if(musicEnabled)startMusic();
  clearInterval(timer);timer=setInterval(()=>{timeLeft--;$("time").textContent=timeLeft;if(timeLeft<=0){if(!locked)endGame();else clearInterval(timer)}},1000);
 }
+
+// Original lightweight arcade soundtrack generated with Web Audio (no external files).
+let musicEnabled=true, musicPlaying=false, musicContext=null, musicMaster=null, musicTimer=null;
+const musicNotes=[659.25,783.99,987.77,783.99,587.33,659.25,783.99,523.25,
+                  659.25,783.99,880.00,783.99,587.33,523.25,587.33,659.25];
+const bassNotes=[130.81,130.81,174.61,174.61,146.83,146.83,196.00,196.00];
+function playMusicNote(freq,when,duration,volume,type="triangle"){
+ const osc=musicContext.createOscillator(),gain=musicContext.createGain();
+ osc.type=type;osc.frequency.setValueAtTime(freq,when);
+ gain.gain.setValueAtTime(.0001,when);
+ gain.gain.exponentialRampToValueAtTime(volume,when+.018);
+ gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+ osc.connect(gain);gain.connect(musicMaster);
+ osc.start(when);osc.stop(when+duration+.03);
+}
+function playMusicLoop(){
+ if(!musicPlaying||!musicContext)return;
+ const start=musicContext.currentTime+.04, beat=.28;
+ musicNotes.forEach((note,i)=>{
+  playMusicNote(note,start+i*beat,.2,.055,"triangle");
+  if(i%2===0)playMusicNote(bassNotes[Math.floor(i/2)],start+i*beat,.38,.075,"sine");
+ });
+ musicTimer=setTimeout(playMusicLoop,musicNotes.length*beat*1000);
+}
+async function startMusic(){
+ if(!musicEnabled||musicPlaying)return;
+ const AudioCtx=window.AudioContext||window.webkitAudioContext;
+ if(!AudioCtx)return;
+ try{
+  musicContext=new AudioCtx();
+  musicMaster=musicContext.createGain();
+  musicMaster.gain.value=.55;
+  musicMaster.connect(musicContext.destination);
+  await musicContext.resume();
+  musicPlaying=true;playMusicLoop();
+ }catch(e){musicPlaying=false;}
+}
+function stopMusic(){
+ musicPlaying=false;clearTimeout(musicTimer);musicTimer=null;
+ if(musicContext){const oldContext=musicContext;musicContext=null;musicMaster=null;oldContext.close().catch(()=>{});}
+}
+function updateMusicButton(){
+ $("musicBtn").textContent=musicEnabled?"♫ MUSIC: ON":"♫ MUSIC: OFF";
+ $("musicBtn").setAttribute("aria-pressed",String(musicEnabled));
+}
+$("musicBtn").addEventListener("click",()=>{
+ musicEnabled=!musicEnabled;
+ if(musicEnabled){if($("startOverlay").classList.contains("hidden")&&!finished)startMusic();}
+ else stopMusic();
+ updateMusicButton();
+});
+
 $("startBtn").addEventListener("click",startGame);$("againBtn").addEventListener("click",startGame);
 $("clearBtn").addEventListener("click",clearSelection);$("mixBtn").addEventListener("click",mix);
 renderIngredients();

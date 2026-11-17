@@ -28,11 +28,15 @@ button:active{transform:translateY(3px);box-shadow:0 4px 0 #b84f80,0 8px 16px #1
 .hidden{display:none!important}
 .footer{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.2em;color:#e7c4dd55;pointer-events:none}
 @media(min-width:600px){#game{height:min(94dvh,900px);border-radius:28px;border:1px solid #ffffff1a}}
+
+.music-toggle{position:absolute;top:112px;right:12px;z-index:20;border:1px solid #ff8ddd;border-radius:999px;padding:8px 12px;background:#160d26eF;color:#fff;font-weight:800;font-size:11px;letter-spacing:.06em;box-shadow:0 0 12px #ff28b966;cursor:pointer}
+.music-toggle[aria-pressed="false"]{border-color:#8d83a8;color:#c9c1d8;box-shadow:none}
 </style>
 </head>
 <body>
 <main id="game" aria-label="Cupcake Tower game">
 <canvas id="c" aria-label="Tap or click to drop cupcakes"></canvas>
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="true" onclick="toggleSugarMusic()">♫ MUSIC ON</button>
 <div class="topbar"><div class="brand">SUGARTECH<b>CUPCAKE TOWER</b><span class="pill">✦ STACK IT SWEET</span></div><div class="scorebox"><small>YOUR TOWER</small><strong id="score">0</strong><small>BEST <span id="best">0</span></small></div></div>
 <div class="hint" id="hint">TAP ANYWHERE OR PRESS SPACE TO DROP</div>
 <div class="footer">A LITTLE BALANCE GOES A LONG WAY</div>
@@ -47,6 +51,43 @@ button:active{transform:translateY(3px);box-shadow:0 4px 0 #b84f80,0 8px 16px #1
 </div>
 </main>
 <script>
+
+// SugarTech original arcade-style background music (generated locally with Web Audio).
+let musicEnabled=true,musicContext=null,musicMaster=null,musicTimer=null,musicStep=0,musicNextTime=0;
+const musicMelody=[659.25,587.33,523.25,587.33,783.99,659.25,587.33,523.25,
+                    587.33,523.25,493.88,523.25,698.46,659.25,587.33,523.25];
+function musicNote(freq,when,duration,type='triangle',volume=.16){
+ const osc=musicContext.createOscillator(),gain=musicContext.createGain();
+ osc.type=type;osc.frequency.setValueAtTime(freq,when);
+ gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(volume,when+.025);
+ gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+ osc.connect(gain);gain.connect(musicMaster);osc.start(when);osc.stop(when+duration+.03);
+}
+function scheduleSugarMusic(){
+ if(!musicContext||!musicMaster||!musicEnabled)return;
+ while(musicNextTime<musicContext.currentTime+.22){
+  const i=musicStep%16, t=musicNextTime;
+  musicNote(musicMelody[i],t,.27,'triangle',.13);
+  if(i%4===0)musicNote([164.81,146.83,130.81,146.83][Math.floor(i/4)],t,.62,'sine',.11);
+  if(i%2===0)musicNote(musicMelody[i]*2,t,.12,'sine',.035);
+  musicNextTime+=.36;
+  musicStep++;
+ }
+}
+function startSugarMusic(){
+ if(!musicEnabled)return;
+ const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+ if(!musicContext){musicContext=new AudioCtx();musicMaster=musicContext.createGain();musicMaster.gain.value=.62;musicMaster.connect(musicContext.destination);}
+ musicMaster.gain.setTargetAtTime(.62,musicContext.currentTime,.05);
+ musicContext.resume().then(()=>{if(!musicEnabled)return;if(!musicTimer){musicNextTime=musicContext.currentTime+.05;musicTimer=setInterval(scheduleSugarMusic,90);}}).catch(()=>{});
+}
+function toggleSugarMusic(){
+ musicEnabled=!musicEnabled;
+ const b=document.getElementById('musicToggle');if(b){b.textContent=musicEnabled?'♫ MUSIC ON':'♫ MUSIC OFF';b.setAttribute('aria-pressed',String(musicEnabled));}
+ if(musicEnabled)startSugarMusic();
+ else if(musicMaster){musicMaster.gain.setTargetAtTime(.0001,musicContext.currentTime,.04);clearInterval(musicTimer);musicTimer=null;}
+}
+
 (()=>{
 const canvas=document.getElementById('c'),ctx=canvas.getContext('2d'),game=document.getElementById('game');
 const scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),hint=document.getElementById('hint');
@@ -58,7 +99,7 @@ function resize(){const r=game.getBoundingClientRect();W=r.width;H=r.height;dpr=
 window.addEventListener('resize',resize);
 function resetWorld(){score=0;scoreEl.textContent='0';blocks=[];particles=[];lean=leanVel=leanTarget=0;fallTime=0;shake=0;cameraY=0;const baseY=H-105;blocks.push({x:W/2,y:baseY,w:116,h:66,color:colors[0],angle:0,balanceX:W/2,base:true});spawn()}
 function spawn(){const y=blocks[blocks.length-1].y-88;active={x:W/2,y,w:104,h:62,color:colors[(score+1)%colors.length],dir:1,speed:2.1+Math.min(score*.075,2.2),phase:Math.random()*Math.PI};}
-function start(){resetWorld();state='playing';startEl.classList.add('hidden');overEl.classList.add('hidden');helpEl.classList.add('hidden');hint.textContent='TAP ANYWHERE OR PRESS SPACE TO DROP'}
+function start(){startSugarMusic();resetWorld();state='playing';startEl.classList.add('hidden');overEl.classList.add('hidden');helpEl.classList.add('hidden');hint.textContent='TAP ANYWHERE OR PRESS SPACE TO DROP'}
 function drop(){if(state!=='playing'||!active)return;
  const landedX=active.x,landedColor=active.color,landedW=active.w,landedH=active.h;
  const target=blocks[blocks.length-1];

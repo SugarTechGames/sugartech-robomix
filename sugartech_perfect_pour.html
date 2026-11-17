@@ -54,9 +54,13 @@ input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;bac
 .modal{max-width:430px;width:100%;text-align:center;padding:28px;border:1px solid var(--pink);border-radius:20px;background:#100d22;box-shadow:0 0 30px #ff28b966}
 .modal h2{margin:0 0 8px;color:#ff8ddd;font-size:30px}.modal p{color:#d7d3e8;line-height:1.5}
 @media(max-width:600px){body{padding:8px}.panel{padding:9px}.stage{height:280px}.glass-svg{height:235px;width:215px}.target-label{right:calc(50% - 137px);font-size:8px}.target-label:before{width:30px}.stat{min-width:75px;padding:7px 9px}.stat strong{font-size:19px}.control-box{padding:13px 12px}input[type=range]{height:15px}input[type=range]::-webkit-slider-thumb{width:35px;height:35px}}
+
+.music-toggle{position:fixed;top:12px;right:12px;z-index:20;border:1px solid #ff8ddd;border-radius:999px;padding:8px 12px;background:#160d26eF;color:#fff;font-weight:800;font-size:11px;letter-spacing:.06em;box-shadow:0 0 12px #ff28b966;cursor:pointer}
+.music-toggle[aria-pressed="false"]{border-color:#8d83a8;color:#c9c1d8;box-shadow:none}
 </style>
 </head>
 <body>
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="true" onclick="toggleSugarMusic()">♫ MUSIC ON</button>
 <div class="wrap">
 <header><div class="logo">SUGAR<span>TECH</span></div><div class="sub">PERFECT POUR · PRECISION BAR</div></header>
 <div class="stats">
@@ -87,6 +91,42 @@ input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;bac
 </div>
 <div class="overlay" id="overlay"><div class="modal"><h2 id="endTitle">SHIFT COMPLETE!</h2><p id="endText"></p><button class="action" onclick="startGame()">PLAY AGAIN</button></div></div>
 <script>
+// SugarTech original arcade-style background music (generated locally with Web Audio).
+let musicEnabled=true,musicContext=null,musicMaster=null,musicTimer=null,musicStep=0,musicNextTime=0;
+const musicMelody=[659.25,587.33,523.25,587.33,783.99,659.25,587.33,523.25,
+                    587.33,523.25,493.88,523.25,698.46,659.25,587.33,523.25];
+function musicNote(freq,when,duration,type='triangle',volume=.16){
+ const osc=musicContext.createOscillator(),gain=musicContext.createGain();
+ osc.type=type;osc.frequency.setValueAtTime(freq,when);
+ gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(volume,when+.025);
+ gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+ osc.connect(gain);gain.connect(musicMaster);osc.start(when);osc.stop(when+duration+.03);
+}
+function scheduleSugarMusic(){
+ if(!musicContext||!musicMaster||!musicEnabled)return;
+ while(musicNextTime<musicContext.currentTime+.22){
+  const i=musicStep%16, t=musicNextTime;
+  musicNote(musicMelody[i],t,.27,'triangle',.13);
+  if(i%4===0)musicNote([164.81,146.83,130.81,146.83][Math.floor(i/4)],t,.62,'sine',.11);
+  if(i%2===0)musicNote(musicMelody[i]*2,t,.12,'sine',.035);
+  musicNextTime+=.36;
+  musicStep++;
+ }
+}
+function startSugarMusic(){
+ if(!musicEnabled)return;
+ const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+ if(!musicContext){musicContext=new AudioCtx();musicMaster=musicContext.createGain();musicMaster.gain.value=.62;musicMaster.connect(musicContext.destination);}
+ musicMaster.gain.setTargetAtTime(.62,musicContext.currentTime,.05);
+ musicContext.resume().then(()=>{if(!musicEnabled)return;if(!musicTimer){musicNextTime=musicContext.currentTime+.05;musicTimer=setInterval(scheduleSugarMusic,90);}}).catch(()=>{});
+}
+function toggleSugarMusic(){
+ musicEnabled=!musicEnabled;
+ const b=document.getElementById('musicToggle');if(b){b.textContent=musicEnabled?'♫ MUSIC ON':'♫ MUSIC OFF';b.setAttribute('aria-pressed',String(musicEnabled));}
+ if(musicEnabled)startSugarMusic();
+ else if(musicMaster){musicMaster.gain.setTargetAtTime(.0001,musicContext.currentTime,.04);clearInterval(musicTimer);musicTimer=null;}
+}
+
 const drinks=[
  {name:'BLUE APPLE',color:'#22caff',dark:'#0877b9'},
  {name:'PEACH CRANBERRY',color:'#ff815c',dark:'#bd3d68'},
@@ -225,6 +265,7 @@ function frame(now){
  raf=requestAnimationFrame(frame);
 }
 function startGame(){
+ startSugarMusic();
  stop();score=0;timeLeft=60;drinksMade=0;lives=3;spillPenalty=0;playing=true;last=0;
  updateStats();$('overlay').style.display='none';$('startBtn').textContent='SHIFT IN PROGRESS';
  $('sliderControl').classList.remove('disabled');
