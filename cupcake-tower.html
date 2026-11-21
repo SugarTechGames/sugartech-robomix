@@ -247,7 +247,12 @@ window.addEventListener('keydown',e=>{if((e.code==='Space'||e.code==='Enter')&&!
 // Public leaderboard uses Supabase REST/RPC. Never expose secret/service-role keys.
 const leaderKey='sugartechCupcakeLeaderboardV1';
 const cfg=window.SUGARTECH_SUPABASE||{};
-const online=Boolean(/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test((cfg.url||'').replace(/\/$/,''))&&cfg.anonKey);
+
+const online = Boolean(
+  /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test((cfg.url || '').replace(/\/$/, '')) &&
+  cfg.anonKey
+);
+
 let boardTab='all',adminUnlocked=false,staffToken='',currentEvent=null,boardRows=[];
 const $=id=>document.getElementById(id);
 const apiRoot=(cfg.url||'').replace(/\/$/,'');
