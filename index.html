@@ -1,0 +1,310 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SugarTech • RoboMix Prototype</title><style>
+:root{--bg:#100b1d;--panel:#1c1430;--line:#48335c;--pink:#ff4eaf;--mint:#7bffe0;--text:#fff7ff;--muted:#c6b5d5}*{box-sizing:border-box}body{margin:0;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at 50% -15%,#4e215f 0,transparent 58%),var(--bg)}button{font:inherit;cursor:pointer}button:disabled{cursor:default;opacity:.48}.app{width:min(100%,850px);margin:auto;padding:18px 16px 30px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.brand{font-weight:1000;font-size:22px;letter-spacing:-1px}.brand span{color:var(--pink)}.tag{font-size:10px;letter-spacing:.2em;color:var(--muted)}.stats{display:flex;gap:8px;align-items:center}.musicbtn{border:1px solid #65436f;background:#241a38;color:#ffe3f4;border-radius:12px;min-width:39px;height:39px;font-size:19px}.musicbtn[aria-pressed="false"]{opacity:.55}.stat{background:#241a38;border:1px solid #52365f;border-radius:13px;padding:8px 12px;text-align:center;min-width:70px}.stat b{display:block;font-size:20px}.stat small{font-size:9px;letter-spacing:.12em;color:#c5b0d1}.order{background:linear-gradient(120deg,#39203f,#251b3d);border:1px solid #69416d;border-radius:19px;padding:16px;display:flex;align-items:center;gap:15px;margin-bottom:13px}.avatar{width:48px;height:48px;flex-shrink:0;border-radius:15px;background:#ff4eaf;color:#2b0b27;display:grid;place-items:center;font-size:23px;font-weight:1000}.order h2{font-size:17px;margin:0 0 5px}.order p{margin:0;color:#f0d4ee;font-size:13px}.recipe{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.recipe span{border-radius:100px;background:#ffffff16;padding:5px 10px;font-size:12px}.sectiontitle{display:flex;justify-content:space-between;align-items:center;margin:10px 2px 9px;font-size:11px;font-weight:850;letter-spacing:.13em;color:#f6b8df}.ingredients{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:7px}.ingredient{border:1px solid #65436f;background:linear-gradient(#30213f,#241a36);border-radius:14px;min-height:82px;color:#fff;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;transition:background .14s,transform .14s,border .14s}.ingredient:hover{transform:translateY(-2px);border-color:var(--pink)}.ingredient.selected{background:#284b49;border-color:var(--mint);box-shadow:inset 0 0 0 1px #7bffe055}.ingredient .emoji{font-size:29px;line-height:1}.ingredient .name{font-size:10px;font-weight:750}.station{position:relative;margin-top:13px;overflow:hidden;border:1px solid #553c66;border-radius:22px;background:radial-gradient(ellipse at 52% 45%,#352047,#1a142a 72%);height:340px}.station:before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(transparent,#000)}.station-label{position:absolute;top:16px;left:18px;font-size:10px;letter-spacing:.2em;color:#bda5cd;font-weight:900}.shelf{position:absolute;bottom:34px;left:5%;width:90%;height:15px;border-radius:8px;background:linear-gradient(#a47ca9,#593c69);box-shadow:0 12px 24px #0007}.glass-wrap{position:absolute;width:148px;height:207px;left:39%;bottom:46px;z-index:2}.glass{position:absolute;left:10px;bottom:0;width:128px;height:172px;clip-path:polygon(7% 0,93% 0,80% 100%,20% 100%);background:linear-gradient(90deg,#ffffff28,#ffffff08 36%,#ffffff23 88%);border:0}.glass-outline{position:absolute;inset:0;pointer-events:none;width:148px;height:207px;overflow:visible}.liquid{position:absolute;bottom:3px;left:20%;width:60%;height:0;background:linear-gradient(135deg,#ff74a9,#ffb05e);transition:height .3s;opacity:.9}.glass.mixed .liquid{height:67%;background:linear-gradient(130deg,var(--drink-light,#ffb05e),var(--drink-color,#ff74a9) 60%,var(--drink-dark,#b6338c))}.glass.mixed:after{content:"";position:absolute;left:24%;top:35%;height:50%;width:10px;border-radius:50%;background:#fff6;filter:blur(6px)}.glass-items{position:absolute;inset:20px 24px 12px;display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;gap:0;z-index:2}.glass-items span{font-size:36px;line-height:40px;filter:drop-shadow(0 3px 2px #0006);animation:land .3s ease-out}.glass.mixed .glass-items{opacity:0;transition:opacity .16s}.robot{position:absolute;right:3%;bottom:43px;width:45%;height:260px;z-index:3;overflow:visible}/* Articulated, logo-inspired robot reaches for the cup */
+.robot{right:1%;width:56%;bottom:36px;height:284px;transform-origin:84% 85%;filter:drop-shadow(0 6px 8px #0007)}
+.robot .joint{transform-box:fill-box;transform-origin:center}
+.robot.mixing{animation:robotReach 1.45s ease-in-out both}
+.robot.mixing .fingers{animation:grip 1.45s ease-in-out both;transform-origin:90px 122px}
+.glass-wrap.swirling{animation:glassSwirl 1.05s ease-in-out both;transform-origin:50% 80%}
+.glass-wrap.swirling .glass-items span{animation:emojiSwirl .22s linear infinite}
+@keyframes robotReach{0%,100%{transform:translate(0,0) rotate(0)}20%,75%{transform:translate(-15px,10px) rotate(-6deg)}45%,55%{transform:translate(-18px,7px) rotate(-3deg)}}
+@keyframes grip{0%,100%{transform:scale(1)}25%,78%{transform:scale(.87)}}
+@keyframes glassSwirl{0%,100%{transform:translate(0,0) rotate(0)}18%{transform:translate(0,-12px) rotate(-7deg)}35%{transform:translate(4px,-17px) rotate(9deg)}53%{transform:translate(-4px,-15px) rotate(-9deg)}72%{transform:translate(3px,-12px) rotate(6deg)}88%{transform:translate(0,-4px) rotate(-2deg)}}
+@keyframes emojiSwirl{50%{transform:translateX(9px) rotate(18deg)}}.base-light{animation:pulse 1.5s ease-in-out infinite}.action{display:flex;gap:10px;margin-top:13px}.mixbtn{flex:1;background:linear-gradient(100deg,#ff4eaf,#ff7b9d);border:0;color:#2c0d26;border-radius:15px;padding:17px;font-size:16px;font-weight:1000;letter-spacing:.06em;box-shadow:0 7px 20px #ff4eaf2a}.clearbtn{border:1px solid #67476e;background:#2b203c;color:#e8d5eb;border-radius:15px;padding:0 21px;font-weight:800}.status{text-align:center;color:#d6c0e0;font-size:13px;min-height:24px;margin-top:11px}.overlay{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:#0d0818dc;padding:20px;backdrop-filter:blur(8px)}.overlay.hidden{display:none}.modal{background:linear-gradient(145deg,#372146,#1e1631);border:1px solid #805080;border-radius:23px;padding:28px;max-width:410px;text-align:center;box-shadow:0 25px 90px #000a}.modal h1{font-size:37px;margin:8px 0}.modal h1 span{color:var(--pink)}.modal p{line-height:1.6;color:#e2cbe6;font-size:14px}.modal button{background:var(--pink);color:#260c23;border:0;padding:15px 24px;border-radius:12px;font-weight:1000;margin-top:12px}.fall{position:fixed;pointer-events:none;z-index:20;font-size:32px;line-height:1;will-change:transform;filter:drop-shadow(0 4px 2px #0006)}.result{position:absolute;top:50px;left:50%;transform:translateX(-50%);font-size:21px;font-weight:1000;color:var(--mint);text-shadow:0 3px 20px #000;z-index:8;white-space:nowrap;animation:pop .7s ease both}@keyframes land{from{transform:translateY(-25px) scale(1.2)}to{transform:translateY(0) scale(1)}}@keyframes pop{0%{opacity:0;transform:translate(-50%,14px) scale(.7)}35%{opacity:1;transform:translate(-50%,0) scale(1.1)}100%{opacity:0;transform:translate(-50%,-15px)}}@keyframes pulse{50%{fill:#aaffea}}@keyframes armUpper{0%,100%{transform:translate(0,0) rotate(0)}35%,70%{transform:translate(-8px,-7px) rotate(-9deg)}}@keyframes armForearm{0%,100%{transform:translate(0,0)}35%,70%{transform:translate(-14px,5px) rotate(6deg)}}@keyframes stir{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}@media(max-width:680px){.app{padding:13px 10px}.header{align-items:flex-start}.brand{font-size:20px}.stat{padding:7px;min-width:58px}.stat b{font-size:17px}.ingredients{grid-template-columns:repeat(3,1fr)}.ingredient{min-height:63px;flex-direction:row;gap:7px}.ingredient .emoji{font-size:26px}.ingredient .name{font-size:11px}.station{height:310px}.glass-wrap{left:29%;transform:scale(.85);transform-origin:bottom center}.robot{width:60%;right:-13%;height:250px}.order{padding:12px}.order h2{font-size:15px}.order p{font-size:12px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Cup and gripper form one physical assembly during the flip. */
+.lid{position:absolute;left:18px;top:17px;width:112px;height:31px;z-index:7;opacity:0;transform:translateY(-66px);pointer-events:none;filter:drop-shadow(0 4px 3px #0008)}
+.lid:before{content:"";position:absolute;left:4px;top:9px;width:104px;height:19px;border:3px solid #17091d;border-radius:9px;background:linear-gradient(90deg,#9e4a9b,#fff2fb 35%,#fda5e4 75%,#b43b9c)}
+.lid:after{content:"";position:absolute;left:34px;top:0;width:44px;height:15px;border:3px solid #17091d;border-radius:8px 8px 3px 3px;background:linear-gradient(#fff,#e987d1)}
+.glass-wrap.sealed .lid{opacity:1;transform:translateY(0);transition:transform .27s cubic-bezier(.2,1.4,.4,1),opacity .1s}
+.glass-wrap.unsealing .lid{opacity:0;transform:translateY(-60px);transition:transform .3s ease-in,opacity .25s}
+.robot{transition:transform .35s cubic-bezier(.2,.75,.25,1);transform:translate(14px,-6px)}
+.robot .fingers{transition:opacity .12s,transform .24s ease;transform-box:fill-box;transform-origin:50% 0}.robot.grabbing .fingers{transform:scaleX(1.35)}
+.robot.grabbing{transform:translate(-40px,9px) rotate(-4deg)}
+.robot.held{transform:translate(-52px,-18px) rotate(-13deg)}
+.robot.retracting{transform:translate(14px,-6px) rotate(0)}
+/* Gripping fingers live inside the cup coordinate system, so cannot drift off it. */
+.cup-grip{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;transition:opacity .12s}
+.cup-grip .jaw{position:absolute;top:83px;width:22px;height:68px;border:5px solid #17091d;border-radius:13px;background:linear-gradient(90deg,#f8ecfa,#ed69c8 70%,#b5339c);box-shadow:inset 3px 0 #fff9;transform-origin:center 12px;transition:transform .18s}
+.cup-grip .jaw.left{left:4px;transform:translateX(-17px) rotate(-12deg)}
+.cup-grip .jaw.right{right:4px;transform:translateX(17px) rotate(12deg)}
+.cup-grip.grip-ready{opacity:1}
+.cup-grip.grip-closed .jaw.left{transform:translateX(0) rotate(3deg)}
+.cup-grip.grip-closed .jaw.right{transform:translateX(0) rotate(-3deg)}
+.cup-grip .jaw:after{content:"";position:absolute;bottom:8px;left:4px;width:5px;height:19px;border-radius:5px;background:#ffb9e8}
+.glass-wrap{transform-origin:50% 54%;will-change:transform}
+.glass-wrap .glass-items span{transform-origin:center}
+.glass-wrap.inverting .glass-items span{animation:emojiSwirl .22s ease-in-out infinite alternate}
+.station.busy-mix .station-label:after{content:"  •  MIXING";color:#7bffe0}
+@media(max-width:680px){.robot.grabbing{transform:translate(-25px,7px) rotate(-4deg)}.robot.held{transform:translate(-36px,-13px) rotate(-13deg)}}
+
+/* Matching four-link gripper in both idle and attached states. */
+.robot .fingers{transition:opacity .26s ease,transform .26s ease;transform-origin:53px 102px}
+.robot.grabbing .fingers{transform:scaleX(1.17)}
+.cup-grip{transition:opacity .26s ease}
+.cup-grip .connector,.cup-grip .jaw{position:absolute;display:block;box-sizing:border-box;border:4px solid #17091d;background:linear-gradient(90deg,#fffaff,#f6a6e0 62%,#bc409f);box-shadow:inset 2px 0 #fff9;transition:transform .22s ease}
+.cup-grip .connector{top:56px;width:19px;height:41px;border-radius:7px;z-index:2}
+.cup-grip .connector.left{left:6px;transform:translateX(-17px) rotate(-13deg)}
+.cup-grip .connector.right{right:6px;transform:translateX(17px) rotate(13deg)}
+.cup-grip .jaw{top:91px;width:19px;height:61px;border-radius:7px;z-index:3}
+.cup-grip .jaw.left{left:6px;transform:translateX(-17px) rotate(-8deg)}
+.cup-grip .jaw.right{right:6px;transform:translateX(17px) rotate(8deg)}
+.cup-grip.grip-closed .connector.left{transform:translateX(0) rotate(2deg)}
+.cup-grip.grip-closed .connector.right{transform:translateX(0) rotate(-2deg)}
+.cup-grip.grip-closed .jaw.left{transform:translateX(0) rotate(2deg)}
+.cup-grip.grip-closed .jaw.right{transform:translateX(0) rotate(-2deg)}
+.cup-grip .connector:after{content:"";position:absolute;bottom:-6px;left:3px;width:6px;height:6px;border-radius:50%;background:#f64dc4;border:1px solid #17091d}
+
+/* Sketch-matched hand: two hinged digits folded at rest; extended jaws during the lift. */
+.cup-grip{inset:0;opacity:0;transition:opacity .22s ease;transform:none}
+.cup-grip svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 3px #0007)}
+.cup-grip .grip-finger{transition:transform .2s ease;transform-box:view-box}
+.cup-grip .grip-left{transform-origin:34px 69px;transform:rotate(12deg)}
+.cup-grip .grip-right{transform-origin:114px 69px;transform:rotate(-12deg)}
+.cup-grip.grip-ready{opacity:1}
+.cup-grip.grip-closed .grip-left,.cup-grip.grip-closed .grip-right{transform:rotate(0deg)}
+.robot .fingers{transition:opacity .22s ease}
+.robot.grabbing .fingers{transform:none}
+
+/* The wrist is positioned directly on the cup-gripper hinge. */
+.cup-grip svg{filter:drop-shadow(0 2px 2px #0004)}
+.robot .fingers{transform-origin:53px 102px;transform-box:view-box}
+
+/* Stable machine base: no translation or rotation of the entire robot.
+   The cup and its attached gripper still perform the two complete flips. */
+.robot,.robot.grabbing,.robot.held,.robot.retracting{
+ transform:none !important;
+ translate:none !important;
+ transition:none !important;
+}
+.robot .fingers{transition:opacity .15s ease,transform .22s ease}
+
+/* Sketch-inspired two-pose articulation. The shoulder and base are fixed.
+   The upper arm pivots at the large elbow, while the wrist link extends
+   from its own hinge. Both pivots remain connected in SVG space. */
+.robot .moving-forearm{transform-box:view-box;transform-origin:233px 141px;transform:rotate(0deg);transition:transform .42s cubic-bezier(.22,.8,.2,1)}
+.robot .last-link{transform-box:view-box;transform-origin:106px 78px;transform:scaleX(1);transition:transform .42s cubic-bezier(.22,.8,.2,1)}
+.robot.grabbing .moving-forearm,.robot.held .moving-forearm{transform:rotate(3deg)}
+.robot.grabbing .last-link,.robot.held .last-link{transform:scaleX(1.48)}
+.robot.retracting .moving-forearm{transform:rotate(0deg)}
+.robot.retracting .last-link{transform:scaleX(1)}
+/* Keep the elbow cap on top of the pivot seam. */
+.robot{overflow:visible}
+</style><style id="unified-style">
+/* One articulated mechanism: no second gripper attached to the cup. */
+#robot,#cupGrip{display:none!important}
+#unifiedRobot{position:absolute;inset:0;width:100%;height:100%;z-index:6;overflow:visible;pointer-events:none;filter:drop-shadow(0 5px 5px #0006)}
+#glassTarget{z-index:5}
+</style></head><body><main class="app"><header class="header"><div><div class="tag">SUGARTECH ARCADE</div><div class="brand">ROBO<span>MIX</span></div></div><div class="stats"><button class="musicbtn" id="music" aria-label="Toggle music" aria-pressed="true" title="Music on/off">♫</button><div class="stat"><b id="time">60</b><small>SECONDS</small></div><div class="stat"><b id="score">0</b><small>POINTS</small></div><div class="stat"><b id="drinks">0</b><small>DRINKS</small></div></div></header><section class="order"><div class="avatar" id="avatar">M</div><div><h2 id="orderTitle">Order for Mia</h2><p id="orderText">Make the drink using these three ingredients.</p><div class="recipe" id="recipe"></div></div></section><div class="sectiontitle"><span>CHOOSE YOUR INGREDIENTS</span><span id="count">0 / 3</span></div><section class="ingredients" id="ingredients"></section><section class="station" id="station"><div class="station-label">ROBOTIC MIXING STATION</div><div class="shelf"></div><div class="glass-wrap" id="glassTarget"><div class="lid" id="lid" aria-hidden="true"></div><div class="cup-grip" id="cupGrip" aria-hidden="true"><svg viewBox="0 0 148 207" preserveAspectRatio="none">
+<defs><linearGradient id="gripMetal" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#fffaff"/><stop offset=".55" stop-color="#f4a4df"/><stop offset="1" stop-color="#bc409f"/></linearGradient></defs>
+<!-- Two upper links, connected by the wrist above the cup -->
+<path d="M74 42 L34 69" stroke="#421b40" stroke-width="14" stroke-linecap="round"/><path d="M74 42 L34 69" stroke="#f6a8e3" stroke-width="12" stroke-linecap="round"/>
+<path d="M74 42 L114 69" stroke="#421b40" stroke-width="14" stroke-linecap="round"/><path d="M74 42 L114 69" stroke="#f6a8e3" stroke-width="12" stroke-linecap="round"/>
+<circle cx="74" cy="42" r="11" fill="#f34bbf" stroke="#632354" stroke-width="3"/>
+<g class="grip-finger grip-left"><circle cx="34" cy="69" r="9" fill="#f34bbf" stroke="#632354" stroke-width="3"/><path d="M34 69 L34 148" stroke="#421b40" stroke-width="16" stroke-linecap="round"/><path d="M34 69 L34 148" stroke="#f6b9e9" stroke-width="13" stroke-linecap="round"/></g>
+<g class="grip-finger grip-right"><circle cx="114" cy="69" r="9" fill="#f34bbf" stroke="#632354" stroke-width="3"/><path d="M114 69 L114 148" stroke="#421b40" stroke-width="16" stroke-linecap="round"/><path d="M114 69 L114 148" stroke="#f6b9e9" stroke-width="13" stroke-linecap="round"/></g>
+</svg></div><div class="glass" id="glass"><div class="liquid"></div><div class="glass-items" id="glassItems"></div></div><svg class="glass-outline" viewBox="0 0 148 207"><path d="M21 36 H127 L111 202 H37 Z" fill="none" stroke="#bfeaff" stroke-width="4" stroke-linejoin="round" opacity=".82"/><path d="M28 45 L41 191" fill="none" stroke="white" stroke-width="3" opacity=".32"/></svg></div><svg class="robot" id="robot" viewBox="0 0 360 270" aria-label="SugarTech-inspired articulated robot gripping a glass"><defs>
+<linearGradient id="metal" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fffaff"/><stop offset=".37" stop-color="#fff"/><stop offset=".65" stop-color="#f5a7e0"/><stop offset="1" stop-color="#b844a4"/></linearGradient>
+<linearGradient id="pinkMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffcdf1"/><stop offset=".5" stop-color="#fa48c5"/><stop offset="1" stop-color="#9b137e"/></linearGradient></defs>
+<!-- base and shoulder -->
+<path d="M262 254 Q259 225 282 208 L325 209 Q344 222 346 254Z" fill="url(#metal)" stroke="#17091d" stroke-width="8"/>
+<circle cx="304" cy="222" r="28" fill="url(#pinkMetal)" stroke="#17091d" stroke-width="8"/><circle cx="304" cy="222" r="13" fill="#f65ac9" stroke="#17091d" stroke-width="6"/>
+<!-- broad angular lower segment -->
+<path d="M282 213 L224 153 L246 121 L325 191Z" fill="url(#metal)" stroke="#17091d" stroke-width="9" stroke-linejoin="round"/><path d="M267 197 L237 155 L249 146 L295 190Z" fill="#ed3bb6" opacity=".65"/>
+<circle cx="233" cy="141" r="34" fill="url(#pinkMetal)" stroke="#16081b" stroke-width="9"/><circle cx="233" cy="141" r="18" fill="#f58ad9" stroke="#16081b" stroke-width="7"/><circle cx="233" cy="141" r="7" fill="#b51b90"/>
+<g class="moving-forearm" id="movingForearm">
+<!-- long upper forearm, logo proportions -->
+<path d="M218 116 L119 59 L92 94 L211 163Z" fill="url(#metal)" stroke="#16081b" stroke-width="9" stroke-linejoin="round"/><path d="M127 76 L208 127 L202 144 L116 92Z" fill="#eb30b0" opacity=".7"/>
+<circle cx="106" cy="78" r="29" fill="url(#pinkMetal)" stroke="#16081b" stroke-width="9"/><circle cx="106" cy="78" r="15" fill="#f9b6e7" stroke="#16081b" stroke-width="6"/><circle cx="106" cy="78" r="6" fill="#c21695"/>
+<g class="last-link" id="lastLink">
+<!-- wrist and detailed articulated fingers, inspired by the logo's hand -->
+<path d="M88 80 L53 94" stroke="#190a20" stroke-width="24" stroke-linecap="round"/><path d="M88 80 L53 94" stroke="url(#metal)" stroke-width="16" stroke-linecap="round"/>
+<circle id="robotWrist" cx="53" cy="94" r="12" fill="url(#pinkMetal)" stroke="#17091d" stroke-width="6"/>
+<g class="fingers">
+<!-- Extended articulated two-finger claw; both fingers originate at the wrist. -->
+<g class="finger-left">
+<path d="M50 101 L25 122" stroke="#29122e" stroke-width="19" stroke-linecap="round"/><path d="M50 101 L25 122" stroke="url(#metal)" stroke-width="13" stroke-linecap="round"/>
+<circle cx="25" cy="122" r="9" fill="url(#pinkMetal)" stroke="#29122e" stroke-width="3"/>
+<path d="M25 122 L38 146" stroke="#29122e" stroke-width="18" stroke-linecap="round"/><path d="M25 122 L38 146" stroke="url(#metal)" stroke-width="12" stroke-linecap="round"/>
+</g>
+<g class="finger-right">
+<path d="M56 101 L81 122" stroke="#29122e" stroke-width="19" stroke-linecap="round"/><path d="M56 101 L81 122" stroke="url(#metal)" stroke-width="13" stroke-linecap="round"/>
+<circle cx="81" cy="122" r="9" fill="url(#pinkMetal)" stroke="#29122e" stroke-width="3"/>
+<path d="M81 122 L68 146" stroke="#29122e" stroke-width="18" stroke-linecap="round"/><path d="M81 122 L68 146" stroke="url(#metal)" stroke-width="12" stroke-linecap="round"/>
+</g>
+</g>
+</g>
+</g>
+</svg></section><div class="action"><button class="clearbtn" id="clear">CLEAR</button><button class="mixbtn" id="mix" disabled>MIX IT! ✦</button></div><div class="status" id="status">Pick the three ingredients from the order.</div></main><div class="overlay" id="startOverlay"><div class="modal"><div class="tag">SUGARTECH ARCADE</div><h1>ROBO<span>MIX</span></h1><p>60 seconds. As many orders as you can make.<br>Tap three ingredients and watch them drop into the glass. Then let the robot mix!</p><button id="start">START MIXING →</button></div></div><div class="overlay hidden" id="endOverlay"><div class="modal"><div class="tag">SHIFT COMPLETE</div><h1 id="endHeading">NICE MIXING!</h1><p id="endDescription"></p><button id="restart">PLAY AGAIN →</button></div></div><script>
+const ingredients=[['strawberry','Strawberry','🍓'],['orange','Orange','🍊'],['pineapple','Pineapple','🍍'],['blueberry','Blueberry','🫐'],['lemon','Lemon','🍋'],['mint','Mint','🌿'],['peach','Peach','🍑'],['coconut','Coconut','🥥'],['watermelon','Watermelon','🍉']].map(([id,name,emoji])=>({id,name,emoji}));const names=['Mia','Alex','Sam','Luna','Noah','Zoe','Leo','Ava','Kai','Ruby'];const drinks=['PINK PARADISE','PURPLE SPARK','TROPICAL GLOW','BERRY BLAST','SUNSET SPLASH','MELON MAGIC','CITRUS KISS','PEACHY DREAM'];const $=id=>document.getElementById(id);let audioCtx=null,musicTimer=null,musicOn=true,musicStep=0;let order,selected=[],score=0,made=0,deadline=0,ticker=null,busy=false,ended=true,roundToken=0;const rand=a=>a[Math.floor(Math.random()*a.length)];const shuffle=a=>[...a].sort(()=>Math.random()-.5);const lookup=id=>ingredients.find(i=>i.id===id);function render(){roundToken++;selected=[];busy=false;order={name:rand(names),drink:rand(drinks),items:shuffle(ingredients).slice(0,3).map(i=>i.id)};$('avatar').textContent=order.name[0];$('orderTitle').textContent=`${order.name} wants ${order.drink}`;$('orderText').textContent='Match the three ingredients in the order:';$('recipe').innerHTML=order.items.map(id=>`<span>${lookup(id).emoji} ${lookup(id).name}</span>`).join('');$('ingredients').innerHTML=shuffle(ingredients).map(i=>`<button class="ingredient" data-id="${i.id}"><span class="emoji">${i.emoji}</span><span class="name">${i.name}</span></button>`).join('');$('ingredients').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>select(b.dataset.id,b)));showWristBridge(false);$('glassTarget').className='glass-wrap';$('robot').classList.remove('grabbing','held','retracting');$('cupGrip').className='cup-grip';$('glassTarget').style.transform='';$('station').classList.remove('busy-mix');$('glass').classList.remove('mixed');$('glassItems').replaceChildren();$('count').textContent='0 / 3';$('mix').disabled=true;$('clear').disabled=false;$('status').textContent='Tap ingredients to drop them into the glass.'}
+function fly(emoji,source,done){const from=source.getBoundingClientRect(),to=$('glassTarget').getBoundingClientRect();const x=from.left+from.width/2,y=from.top+from.height/2,dx=to.left+to.width/2-x,dy=to.top+to.height*.7-y;const e=document.createElement('span');e.className='fall';e.textContent=emoji;e.style.left=(x-16)+'px';e.style.top=(y-16)+'px';document.body.appendChild(e);const a=e.animate([{transform:'translate(0,0) scale(1.1)',opacity:1},{offset:.7,transform:`translate(${dx*.7}px,${dy*.55}px) rotate(25deg)`,opacity:1},{transform:`translate(${dx}px,${dy}px) rotate(45deg) scale(.7)`,opacity:0}],{duration:420,easing:'cubic-bezier(.28,.1,.65,1)',fill:'forwards'});a.onfinish=()=>{e.remove();done()}}
+function refresh(){document.querySelectorAll('.ingredient').forEach(b=>b.classList.toggle('selected',selected.includes(b.dataset.id)));$('count').textContent=selected.length+' / 3';$('mix').disabled=selected.length!==3;$('glassItems').innerHTML=selected.map(id=>`<span>${lookup(id).emoji}</span>`).join('')}
+function select(id,btn){if(ended||busy)return;if(selected.includes(id)){selected=selected.filter(x=>x!==id);refresh();return}if(selected.length>=3)return;selected.push(id);refresh();playEffect('select');const token=roundToken;fly(lookup(id).emoji,btn,()=>{if(token===roundToken&&!ended&&!busy)refresh()})}
+$('clear').onclick=()=>{if(!ended&&!busy){selected=[];refresh()}};
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+// The robot base is fixed. Do not chase the animated glass with
+// getBoundingClientRect(): that creates a moving feedback loop.
+function showWristBridge(on){
+  // Gripper is already parented to the cup; no extra connector or translation.
+  // The wrist position is set by the forearm's two fixed poses.
+}
+let pauseStart=0;
+// One timeline controls both the cup and its gripping fingers. The fingers are
+// parented to the cup, so they follow every 180-degree inversion exactly.
+async function animateCupFlip(cup, robot, alive){
+ const grip=$('cupGrip');
+ cup.classList.add('inverting');
+ const frames=[
+  {transform:'translate(0px, 0px) rotate(0deg)',offset:0},
+  {transform:'translate(-5px,-24px) rotate(0deg)',offset:.12},
+  {transform:'translate(-8px,-33px) rotate(180deg)',offset:.30},
+  {transform:'translate(-8px,-33px) rotate(360deg)',offset:.49},
+  {transform:'translate(-8px,-33px) rotate(540deg)',offset:.68},
+  {transform:'translate(-8px,-33px) rotate(720deg)',offset:.86},
+  {transform:'translate(0px,0px) rotate(720deg)',offset:1}
+ ];
+ const motion=cup.animate(frames,{duration:1700,easing:'ease-in-out',fill:'forwards'});
+ // The robot stays extended alongside the held cup; its grip is carried by
+ // the cup's own coordinate system rather than running a separate rotation.
+ robot.classList.add('held');
+ await motion.finished.catch(()=>{});
+ motion.cancel();cup.classList.remove('inverting');
+ return alive();
+}
+async function mixOrder(){
+ if(ended||busy||selected.length!==3)return;
+ busy=true;pauseStart=Date.now();const token=roundToken;
+ const cup=$('glassTarget'),robot=$('robot'),glass=$('glass'),station=$('station'),grip=$('cupGrip');
+ $('mix').disabled=true;$('clear').disabled=true;
+ document.querySelectorAll('.ingredient').forEach(b=>b.disabled=true);
+ station.classList.add('busy-mix');
+ const color=blendDrink(selected);
+ glass.style.setProperty('--drink-color',color.main);glass.style.setProperty('--drink-light',color.light);glass.style.setProperty('--drink-dark',color.dark);
+ const alive=()=>!ended&&roundToken===token;
+ try{
+   $('status').textContent='Sealing the glass…';cup.classList.add('sealed');playEffect('select');
+   await wait(330);if(!alive())return;
+   $('status').textContent='Robot reaching for the glass…';robot.classList.add('grabbing');
+   await wait(380);if(!alive())return;
+   grip.classList.add('grip-ready');showWristBridge(true);
+   await wait(180);if(!alive())return;
+   grip.classList.add('grip-closed');robot.querySelector('.fingers').style.opacity='0';playEffect('select');
+   await wait(240);if(!alive())return;
+   $('status').textContent='Flipping the sealed drink!';playEffect('mix');
+   if(!await animateCupFlip(cup,robot,alive))return;
+   $('status').textContent='Placing the glass back…';
+   robot.classList.remove('held');
+   await wait(260);if(!alive())return;
+   grip.classList.remove('grip-closed');
+   await wait(170);if(!alive())return;
+   grip.classList.remove('grip-ready');showWristBridge(false);robot.querySelector('.fingers').style.opacity='';
+   robot.classList.remove('grabbing');robot.classList.add('retracting');
+   await wait(330);if(!alive())return;
+   cup.classList.add('unsealing');cup.classList.remove('sealed');
+   $('status').textContent='Revealing your drink…';
+   await wait(300);if(!alive())return;
+   glass.classList.add('mixed');playEffect('done');
+   const correct=selected.filter(x=>order.items.includes(x)).length;
+   const points=[0,30,60,100][correct];score+=points;made++;
+   $('score').textContent=score;$('drinks').textContent=made;
+   const msg=document.createElement('div');msg.className='result';
+   msg.textContent=correct===3?'PERFECT MIX! +100':`${correct}/3 CORRECT · +${points}`;
+   station.appendChild(msg);
+   $('status').textContent=correct===3?'Perfect recipe! Next customer coming up…':`${correct} ingredients matched. Next customer coming up…`;
+   await wait(600);msg.remove();if(!alive())return;
+ }finally{
+   if(alive()){
+     deadline+=Date.now()-pauseStart;pauseStart=0;
+     showWristBridge(false);cup.className='glass-wrap';cup.style.transform='';grip.className='cup-grip';robot.querySelector('.fingers').style.opacity='';
+     robot.classList.remove('grabbing','held','retracting');station.classList.remove('busy-mix');
+     render();tick();
+   }
+ }
+}
+$('mix').onclick=mixOrder;
+function tick(){if(busy)return;const left=Math.max(0,Math.ceil((deadline-Date.now())/1000));$('time').textContent=left;if(left===0)end()}
+function start(){startMusic();clearInterval(ticker);score=0;made=0;ended=false;busy=false;pauseStart=0;$('score').textContent='0';$('drinks').textContent='0';$('startOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');deadline=Date.now()+60000;render();tick();ticker=setInterval(tick,100)}function end(){if(ended)return;ended=true;roundToken++;clearInterval(ticker);$('robot').classList.remove('mixing','grabbing','held','retracting');$('endHeading').textContent=made>=10?'MASTER MIXOLOGIST!':'SHIFT COMPLETE!';$('endDescription').textContent=`You made ${made} drinks and earned ${score} points. Can you beat that?`;$('endOverlay').classList.remove('hidden')}$('start').onclick=start;$('restart').onclick=start;
+
+// Ingredient pigment mixing: RGB weighted average with light/dark variants.
+const pigments={strawberry:'#f34172',orange:'#ff9b2c',pineapple:'#ffdd4a',blueberry:'#6852c6',lemon:'#f5e852',mint:'#49d5a3',peach:'#ffb47e',coconut:'#f2e6d7',watermelon:'#f04d79'};
+function rgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16))}
+function hex(c){return '#'+c.map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('')}
+function blendDrink(ids){const cols=ids.map(id=>rgb(pigments[id]||'#ff75bb'));const avg=[0,1,2].map(i=>cols.reduce((n,c)=>n+c[i],0)/cols.length);return {main:hex(avg),light:hex(avg.map(v=>v*.65+255*.35)),dark:hex(avg.map(v=>v*.65))}}
+// Original short synthesized soundtrack; audio only begins after user gesture.
+function ensureAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=new AC()}if(audioCtx.state==='suspended')audioCtx.resume()}
+function tone(freq,duration=.12,volume=.025,type='sine',when=0){if(!audioCtx)return;const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),t+.015);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.03)}
+function playEffect(which){if(!audioCtx)return;if(which==='select'){tone(520,.09,.03,'triangle');tone(780,.1,.016,'sine',.06)}else if(which==='mix'){tone(190,.17,.025,'sawtooth');tone(260,.18,.018,'triangle',.17);tone(330,.18,.018,'triangle',.35)}else if(which==='done'){[660,830,990].forEach((f,i)=>tone(f,.15,.025,'sine',i*.08))}}
+const melody=[523,0,659,784,0,659,587,0,523,659,784,988,0,784,659,0];
+function musicBeat(){if(!musicOn||!audioCtx||ended)return;const note=melody[musicStep%melody.length];if(note)tone(note,.19,.008,'triangle');if(musicStep%4===0)tone(130,.13,.013,'sine');musicStep++}
+function startMusic(){ensureAudio();if(musicTimer===null)musicTimer=setInterval(musicBeat,240)}
+$('music').onclick=()=>{musicOn=!musicOn;$('music').setAttribute('aria-pressed',String(musicOn));$('music').textContent=musicOn?'♫':'♪';if(musicOn)startMusic()};
+</script><script id="unified-motion">
+(()=>{
+'use strict';
+const station=document.getElementById('station'), cup=document.getElementById('glassTarget'),robot=document.getElementById('robot');
+const ns='http://www.w3.org/2000/svg';
+const svg=document.createElementNS(ns,'svg');svg.id='unifiedRobot';svg.setAttribute('aria-label','Articulated SugarTech robotic arm with attached two-finger gripper');
+svg.innerHTML=`<defs>
+ <linearGradient id="unifiedMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaff"/><stop offset=".42" stop-color="#fff"/><stop offset=".75" stop-color="#f5a7e0"/><stop offset="1" stop-color="#b844a4"/></linearGradient>
+ <linearGradient id="unifiedPink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd1f3"/><stop offset=".5" stop-color="#fb4bc5"/><stop offset="1" stop-color="#a51c8b"/></linearGradient></defs>
+ <g id="machineBase"></g><g id="upperArm"></g><g id="lowerArm"></g><g id="elbowJoint"></g><g id="wristJoint"></g><g id="robotFingers"></g>`;
+station.appendChild(svg);
+const $=id=>svg.querySelector('#'+id), groups={base:$('machineBase'),upper:$('upperArm'),lower:$('lowerArm'),elbow:$('elbowJoint'),wrist:$('wristJoint'),fingers:$('robotFingers')};
+// Logo-style mechanical casings; movement remains driven by the unified rig.
+const segment=(a,b,width)=>{const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L,w=width/2;
+ const pt=(along,side)=>`${(a.x+dx*along+nx*w*side).toFixed(2)},${(a.y+dy*along+ny*w*side).toFixed(2)}`;
+ const p=[pt(.04,1),pt(.82,.88),pt(.98,.53),pt(.98,-.53),pt(.82,-.88),pt(.04,-1)].join(' ');
+ const shine=[pt(.10,-.65),pt(.75,-.55),pt(.88,-.24),pt(.16,-.28)].join(' ');
+ const pink=[pt(.10,.32),pt(.77,.28),pt(.88,.61),pt(.17,.76)].join(' ');
+ return `<polygon points="${p}" fill="url(#unifiedMetal)" stroke="#16081b" stroke-width="6" stroke-linejoin="round"/><polygon points="${shine}" fill="#fff9ff" opacity=".85"/><polygon points="${pink}" fill="#ed35b5" opacity=".78"/><path d="M ${pt(.09,-.88)} L ${pt(.79,-.78)}" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity=".8"/>`;
+};
+const joint=(p,r)=>`<circle cx="${p.x}" cy="${p.y}" r="${r+2}" fill="#13091b"/><circle cx="${p.x}" cy="${p.y}" r="${r-1}" fill="url(#unifiedPink)" stroke="#ffe5f8" stroke-width="1.8"/><circle cx="${p.x}" cy="${p.y}" r="${r*.60}" fill="#210d2b"/><circle cx="${p.x}" cy="${p.y}" r="${r*.43}" fill="url(#unifiedPink)" stroke="#ffbce9" stroke-width="2"/><path d="M ${p.x-r*.65} ${p.y-r*.30} A ${r*.75} ${r*.75} 0 0 1 ${p.x-r*.20} ${p.y-r*.75}" fill="none" stroke="#fff3fd" stroke-width="3" stroke-linecap="round" opacity=".85"/>`;
+const lerp=(a,b,t)=>a+(b-a)*t,blend=(a,b,t)=>({x:lerp(a.x,b.x,t),y:lerp(a.y,b.y,t)}),ease=t=>t*t*(3-2*t);
+let progress=0, last=performance.now();
+function frame(now){
+ const dt=Math.min(.06,(now-last)/1000);last=now;
+ const st=station.getBoundingClientRect(), cr=cup.getBoundingClientRect(), W=st.width,H=st.height;
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ const phase=robot.classList.contains('grabbing')||robot.classList.contains('held');
+ progress+=(Number(phase)-progress)*Math.min(1,dt*6.5);
+ const t=ease(Math.max(0,Math.min(1,progress)));
+ const center={x:cr.left-st.left+cr.width/2,y:cr.top-st.top+cr.height/2};
+ // Read the cup's actual rotation; the wrist and fingers share its rotation.
+ const matrix=getComputedStyle(cup).transform;
+ let angle=0;if(matrix&&matrix!=='none'){const m=new DOMMatrixReadOnly(matrix);angle=Math.atan2(m.b,m.a)}
+ const ca=Math.cos(angle),sa=Math.sin(angle);
+ const rotate=(p)=>({x:center.x+(p.x-center.x)*ca-(p.y-center.y)*sa,y:center.y+(p.x-center.x)*sa+(p.y-center.y)*ca});
+ const cupWidth=cr.width,cupHeight=cr.height;
+ // While flipping, the cup bounding box changes. Use the stable untransformed cup size.
+ const scale=window.innerWidth<=680?.85:1;
+ const realW=148*scale,realH=207*scale;
+ const wristLocal={x:center.x,y:center.y-realH*.35};
+ const gripWrist=rotate(wristLocal);
+ const idleWrist={x:Math.min(W-100,center.x+realW*.75+36),y:center.y-realH*.49};
+ const wrist=blend(idleWrist,gripWrist,t);
+ const shoulder={x:W-48,y:H-89};
+ const elbowIdle={x:shoulder.x-Math.min(100,W*.22),y:shoulder.y-73};
+ const elbowGrip={x:(shoulder.x+wrist.x)*.53+12,y:Math.min(shoulder.y,wrist.y)-67};
+ const elbow=blend(elbowIdle,elbowGrip,t);
+ const baseY=H-44;
+ groups.base.innerHTML=`<path d="M ${shoulder.x-40} ${baseY} L ${shoulder.x-32} ${shoulder.y+5} Q ${shoulder.x} ${shoulder.y-24} ${shoulder.x+31} ${shoulder.y+5} L ${shoulder.x+42} ${baseY} Z" fill="url(#unifiedMetal)" stroke="#16081b" stroke-width="7"/><path d="M ${shoulder.x-23} ${baseY-8} L ${shoulder.x-16} ${shoulder.y+20} L ${shoulder.x+14} ${shoulder.y+20} L ${shoulder.x+25} ${baseY-8}Z" fill="#f239b6" opacity=".65"/>${joint(shoulder,25)}`;
+ groups.upper.innerHTML=segment(shoulder,elbow,43);
+ groups.lower.innerHTML=segment(elbow,wrist,35);
+ groups.elbow.innerHTML=joint(elbow,25);
+ groups.wrist.innerHTML=joint(wrist,15);
+ // Same two hinged fingers in every pose, attached to the same wrist.
+ // At rest they fold near each other. At the cup they extend down both sides.
+ const spread=lerp(12,realW*.36,t),upperLen=lerp(23,realH*.23,t),lowerLen=lerp(22,realH*.39,t);
+ const gripLeft=rotate({x:center.x-realW*.36,y:center.y-realH*.12});
+ const gripRight=rotate({x:center.x+realW*.36,y:center.y-realH*.12});
+ const endLeft=rotate({x:center.x-realW*.36,y:center.y+realH*.26});
+ const endRight=rotate({x:center.x+realW*.36,y:center.y+realH*.26});
+ const idleLeft={x:wrist.x-17,y:wrist.y+25},idleRight={x:wrist.x+17,y:wrist.y+25};
+ const idleEndLeft={x:wrist.x-8,y:wrist.y+53},idleEndRight={x:wrist.x+8,y:wrist.y+53};
+ const leftHinge=blend(idleLeft,gripLeft,t),rightHinge=blend(idleRight,gripRight,t);
+ const leftTip=blend(idleEndLeft,endLeft,t),rightTip=blend(idleEndRight,endRight,t);
+ groups.fingers.innerHTML=segment(wrist,leftHinge,16)+segment(wrist,rightHinge,16)+segment(leftHinge,leftTip,15)+segment(rightHinge,rightTip,15)+joint(leftHinge,9)+joint(rightHinge,9);
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+})();
+</script></body></html>
