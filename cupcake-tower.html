@@ -9,29 +9,41 @@
 :root{--ink:#29182f;--pink:#ff6fae;--cream:#fff2d9;--mint:#8ee2c3;--gold:#ffd36e}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#21152d;color:var(--cream);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
 body{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 15%,#56335d 0,#30203e 48%,#1b1428 100%)}
-#game{position:relative;width:min(100vw,560px);height:min(100dvh,900px);min-height:520px;overflow:hidden;background:linear-gradient(180deg,#382343 0%,#50304e 55%,#2d1c39 100%);box-shadow:0 20px 80px #08040d99;touch-action:manipulation}
+#game{position:relative;width:min(100vw,560px);height:min(100dvh,900px);min-height:520px;overflow:hidden;background:linear-gradient(180deg,#352442 0%,#45304e 55%,#291d38 100%);box-shadow:0 20px 80px #08040d99;touch-action:manipulation}
 canvas{display:block;width:100%;height:100%;touch-action:manipulation}
 .topbar{position:absolute;top:0;left:0;right:0;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}
 .brand{font-size:11px;letter-spacing:.24em;font-weight:900;color:#ffc2dc}.brand b{display:block;font-size:23px;letter-spacing:.06em;color:#fff3df;margin-top:3px}
 .scorebox{text-align:right}.scorebox small{display:block;font-size:10px;letter-spacing:.16em;color:#d9b6d2;font-weight:800}.scorebox strong{font-size:29px;line-height:1.1;color:#fff}
-.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffffff28;background:#ffffff12;border-radius:30px;padding:7px 11px;font-size:11px;color:#f8d9e9;margin-top:7px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #8ee2c355;background:#8ee2c313;border-radius:30px;padding:7px 11px;font-size:11px;color:#f8d9e9;margin-top:7px}
 .hint{position:absolute;left:0;right:0;bottom:24px;text-align:center;color:#f8d9e9b8;font-size:12px;letter-spacing:.04em;pointer-events:none;text-shadow:0 2px 8px #21152d}
 .overlay{position:absolute;inset:0;display:grid;place-items:center;padding:24px;background:#1d132b99;backdrop-filter:blur(5px);z-index:3}
-.panel{width:min(100%,380px);padding:30px 25px 25px;text-align:center;border:1px solid #ffffff2a;border-radius:26px;background:linear-gradient(145deg,#684064f2,#382642f5);box-shadow:0 22px 70px #100a1d99}
+.panel{width:min(100%,380px);padding:30px 25px 25px;text-align:center;border:1px solid #ff9fc744;border-radius:26px;background:linear-gradient(145deg,#60405ff5,#32253ff7);box-shadow:0 22px 70px #100a1d99}
 .cupcake{font-size:56px;line-height:1.2;filter:drop-shadow(0 8px 10px #1c102b66)}
 .eyebrow{font-size:10px;letter-spacing:.25em;color:#ffc1dc;font-weight:900;margin:10px 0}
 h1{font-size:clamp(32px,9vw,46px);line-height:.95;margin:8px 0 13px;letter-spacing:-.04em;color:#fff2df}
 .panel p{font-size:14px;line-height:1.55;color:#ead5e5;margin:0 auto 20px;max-width:290px}
-button{border:0;border-radius:999px;padding:14px 25px;background:linear-gradient(135deg,#ff83b6,#ffb27e);color:#381c36;font-weight:1000;font-size:13px;letter-spacing:.13em;box-shadow:0 7px 0 #b84f80,0 12px 25px #160d2480;cursor:pointer}
+button{border:0;border-radius:999px;padding:14px 25px;background:linear-gradient(135deg,#ff83b6,#ffb3cf);color:#381c36;font-weight:1000;font-size:13px;letter-spacing:.13em;box-shadow:0 7px 0 #b84f80,0 12px 25px #160d2480;cursor:pointer}
 button:active{transform:translateY(3px);box-shadow:0 4px 0 #b84f80,0 8px 16px #160d2480}
 .secondary{display:block;margin:17px auto 0;background:none;box-shadow:none;color:#f4d5e7;padding:5px;font-size:11px}
 .hidden{display:none!important}
+.leader-list{margin:14px 0 20px;display:grid;gap:7px;max-height:280px;overflow-y:auto;text-align:left}
+.leader-row{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:9px 12px;border:1px solid #ffffff24;border-radius:12px;background:#ffffff0d;font-size:13px}
+.leader-row:first-child{background:#ffd36e1b;border-color:#ffd36e70}
+.leader-row strong{color:#a9e5d0;font-size:17px}
+.admin-row{display:flex;align-items:center;gap:8px}.admin-row .leader-row{flex:1;min-width:0}.admin-delete{padding:8px 10px;font-size:10px;background:#5a2c50;color:#fff;box-shadow:none;border:1px solid #ffb3cf66}.admin-fields{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;margin:12px 0}.admin-fields input{width:115px;margin:0}.admin-fields input[type=number]{width:90px}.admin-fields button{padding:11px;font-size:11px}.leader-empty{font-size:13px;color:#ead5e5;padding:20px 0}
+.nickname{width:100%;max-width:240px;border:1px solid #ffb3cf80;border-radius:12px;padding:12px;background:#21152d;color:#fff2df;font:700 15px inherit;text-align:center;outline:none;margin:0 auto 12px;display:block}
+.nickname:focus{border-color:#8ee2c3;box-shadow:0 0 0 3px #8ee2c326}
+.board-tabs{display:flex;gap:7px;margin:10px 0}.board-tabs button{flex:1;padding:10px 5px;box-shadow:none;background:#ffffff16;color:#f7e0ed;border:1px solid #ffffff2d;font-size:10px}.board-tabs button.selected{background:#ff9bbd;color:#301b35;border-color:#ff9bbd}
+.event-banner{border:1px solid #8ee2c366;border-radius:13px;padding:9px;margin:8px 0;color:#a9e5d0;font-size:12px}.staff-grid{display:grid;gap:8px;margin:10px 0}.staff-grid input{width:100%;min-width:0}.staff-grid button{box-shadow:none;padding:10px}.staff-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}.staff-actions button{font-size:10px;box-shadow:none;padding:10px}.staff-notice{font-size:11px;color:#ffe6be}.small-note{font-size:11px!important;margin:10px auto 14px!important;opacity:.8}
+.inline-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.inline-actions button{padding:12px 17px;font-size:11px}
+
 .footer{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.2em;color:#e7c4dd55;pointer-events:none}
 @media(min-width:600px){#game{height:min(94dvh,900px);border-radius:28px;border:1px solid #ffffff1a}}
 
-.music-toggle{position:absolute;top:112px;right:12px;z-index:20;border:1px solid #ff8ddd;border-radius:999px;padding:8px 12px;background:#160d26eF;color:#fff;font-weight:800;font-size:11px;letter-spacing:.06em;box-shadow:0 0 12px #ff28b966;cursor:pointer}
+.music-toggle{position:absolute;top:112px;right:12px;z-index:20;border:1px solid #ff9fc7;border-radius:999px;padding:8px 12px;background:#160d26eF;color:#fff;font-weight:800;font-size:11px;letter-spacing:.06em;box-shadow:0 0 12px #ff28b966;cursor:pointer}
 .music-toggle[aria-pressed="false"]{border-color:#8d83a8;color:#c9c1d8;box-shadow:none}
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 <main id="game" aria-label="Cupcake Tower game">
@@ -41,13 +53,24 @@ button:active{transform:translateY(3px);box-shadow:0 4px 0 #b84f80,0 8px 16px #1
 <div class="hint" id="hint">TAP ANYWHERE OR PRESS SPACE TO DROP</div>
 <div class="footer">A LITTLE BALANCE GOES A LONG WAY</div>
 <div class="overlay" id="start">
- <section class="panel"><div class="cupcake">🧁</div><div class="eyebrow">SUGARTECH PRESENTS</div><h1>CUPCAKE<br>TOWER</h1><p>Build the sweetest skyscraper in town. Drop each cupcake close to the center — every little wobble counts!</p><button id="play">START STACKING</button><button class="secondary" id="how">HOW TO PLAY</button></section>
+ <section class="panel"><div class="cupcake">🧁</div><div class="eyebrow">SUGARTECH PRESENTS</div><h1>CUPCAKE<br>TOWER</h1><p>Build the sweetest skyscraper in town. Drop each cupcake close to the center — every little wobble counts!</p><button id="play">START STACKING</button><button class="secondary" id="how">HOW TO PLAY</button><button class="secondary" id="showLeaders">🏆 LEADERBOARD</button></section>
 </div>
 <div class="overlay hidden" id="over">
- <section class="panel"><div class="cupcake">💥🧁</div><div class="eyebrow">OH CRUMBS!</div><h1>TOWER<br>TOPPLED</h1><p id="result">You stacked 0 cupcakes.</p><button id="again">BAKE ANOTHER</button><button class="secondary" id="home">BACK TO TITLE</button></section>
+ <section class="panel"><div class="cupcake">💥🧁</div><div class="eyebrow">OH CRUMBS!</div><h1>TOWER<br>TOPPLED</h1><p id="result">You stacked 0 cupcakes.</p><div id="scoreSubmit"><input id="nickname" class="nickname" maxlength="16" autocomplete="nickname" placeholder="YOUR NICKNAME" aria-label="Your leaderboard nickname"><button id="saveScore">SAVE SCORE</button><p class="small-note">Scores appear online once connected. Offline mode saves on this device.</p></div><div class="inline-actions"><button id="again">BAKE ANOTHER</button><button id="viewLeaders">🏆 TOP 10</button></div><button class="secondary" id="home">BACK TO TITLE</button></section>
+</div>
+<div class="overlay hidden" id="leaders">
+ <section class="panel"><div class="eyebrow">SUGARTECH HALL OF FAME</div><h1>TOP 10<br>TOWERS</h1>
+ <div class="board-tabs"><button id="tabAll" class="selected">🏆 ALL-TIME</button><button id="tabEvent">⚡ EVENT</button></div>
+ <div id="eventBanner" class="event-banner hidden"></div><div id="leaderList" class="leader-list"></div>
+ <p id="boardStatus" class="small-note">Loading leaderboard…</p><button id="closeLeaders">BACK</button>
+ <button class="secondary" id="manageLeaders">⚙ STAFF TOOLS</button>
+ <div id="adminTools" class="hidden"><div id="staffLogin" class="staff-grid"><p class="small-note">Sign in with your Supabase staff account.</p><input id="staffEmail" type="email" placeholder="STAFF EMAIL"><input id="staffPassword" type="password" placeholder="PASSWORD"><button id="staffSignIn">SIGN IN</button></div>
+ <div id="staffPanel" class="hidden"><p class="staff-notice" id="staffStatus"></p><div class="staff-grid"><input id="adminName" maxlength="16" placeholder="NICKNAME"><input id="adminScore" type="number" min="0" max="999999" step="1" placeholder="SCORE"><button id="adminAdd">ADD MISSING SCORE</button></div>
+ <div class="staff-grid"><input id="eventName" maxlength="60" placeholder="EVENT NAME (e.g. SugarTech Cup)"><input id="eventMinutes" type="number" min="5" max="10080" value="180" placeholder="DURATION IN MINUTES"><div class="staff-actions"><button id="eventStart">START EVENT</button><button id="eventEnd">END EVENT</button><button id="staffSignOut">SIGN OUT</button></div></div><p class="small-note">Delete buttons appear beside scores while signed in. Only one event can run at a time.</p></div>
+ <button class="secondary" id="adminDone">CLOSE STAFF TOOLS</button></div></section>
 </div>
 <div class="overlay hidden" id="help">
- <section class="panel"><div class="cupcake">🎯</div><div class="eyebrow">THE SECRET INGREDIENT</div><h1>STEADY<br>DOES IT</h1><p>Watch the cupcake glide above your tower. Tap or click to drop it. The closer you land to the center, the steadier your tower stays. Off-center weight makes it lean — too much lean and it tumbles!</p><button id="gotit">GOT IT!</button></section>
+ <section class="panel"><div class="cupcake">🎯</div><div class="eyebrow">THE SECRET INGREDIENT</div><h1>STEADY<br>DOES IT</h1><p>Watch the cupcake glide above your tower. Tap or click to drop it. The closer you land to the center, the steadier your tower stays. Accurate drops steady the tower, and clever placements can correct a lean. Keep missing the center and it tumbles!</p><button id="gotit">GOT IT!</button></section>
 </div>
 </main>
 <script>
@@ -92,14 +115,17 @@ function toggleSugarMusic(){
 const canvas=document.getElementById('c'),ctx=canvas.getContext('2d'),game=document.getElementById('game');
 const scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),hint=document.getElementById('hint');
 const startEl=document.getElementById('start'),overEl=document.getElementById('over'),helpEl=document.getElementById('help');
-let W=0,H=0,dpr=1,score=0,best=+(localStorage.getItem('sugartechCupcakeBest')||0),state='menu',active=null,blocks=[],particles=[],lean=0,leanVel=0,leanTarget=0,fallTime=0,shake=0,frame=0,cameraY=0;
+let submitted=false,leaderReturn="start",balance=0,W=0,H=0,dpr=1,score=0,best=+(localStorage.getItem('sugartechCupcakeBest')||0),state='menu',active=null,blocks=[],particles=[],lean=0,leanVel=0,leanTarget=0,fallTime=0,shake=0,frame=0,cameraY=0;
 bestEl.textContent=best;
 const colors=[['#ff9bbd','#e96c9a','#fff0d5'],['#a9e5d0','#65bd9d','#fff0d5'],['#ffd17d','#e9a84f','#fff0d5'],['#c7a5f4','#9472d0','#fff0d5'],['#ffb18c','#e98270','#fff0d5']];
 function resize(){const r=game.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);if(!blocks.length&&state==='menu')resetWorld()}
 window.addEventListener('resize',resize);
-function resetWorld(){score=0;scoreEl.textContent='0';blocks=[];particles=[];lean=leanVel=leanTarget=0;fallTime=0;shake=0;cameraY=0;const baseY=H-105;blocks.push({x:W/2,y:baseY,w:116,h:66,color:colors[0],angle:0,balanceX:W/2,base:true});spawn()}
-function spawn(){const y=blocks[blocks.length-1].y-88;active={x:W/2,y,w:104,h:62,color:colors[(score+1)%colors.length],dir:1,speed:2.1+Math.min(score*.075,2.2),phase:Math.random()*Math.PI};}
-function start(){startSugarMusic();resetWorld();state='playing';startEl.classList.add('hidden');overEl.classList.add('hidden');helpEl.classList.add('hidden');hint.textContent='TAP ANYWHERE OR PRESS SPACE TO DROP'}
+function resetWorld(){score=0;scoreEl.textContent='0';blocks=[];particles=[];lean=leanVel=leanTarget=0;balance=0;fallTime=0;shake=0;cameraY=0;const baseY=H-105;blocks.push({x:W/2,y:baseY,w:116,h:66,color:colors[0],angle:0,balanceX:W/2,base:true});spawn()}
+function spawn(){const y=blocks[blocks.length-1].y-88;
+ // Gradual acceleration: ~2.4 at the start, ~5.4 by 20, ~8 by 50, max ~10.
+ const speed=2.4+Math.min(7.6,score*.13+Math.max(0,score-25)*.045);
+ active={x:W/2,y,w:104,h:62,color:colors[(score+1)%colors.length],dir:Math.random()<.5?-1:1,speed,phase:Math.random()*Math.PI};}
+function start(){if(document.activeElement instanceof HTMLElement)document.activeElement.blur();startSugarMusic();submitted=false;document.getElementById('scoreSubmit').classList.remove('hidden');resetWorld();state='playing';startEl.classList.add('hidden');overEl.classList.add('hidden');helpEl.classList.add('hidden');hint.textContent='TAP ANYWHERE OR PRESS SPACE TO DROP'}
 function drop(){if(state!=='playing'||!active)return;
  const landedX=active.x,landedColor=active.color,landedW=active.w,landedH=active.h;
  const target=blocks[blocks.length-1];
@@ -117,23 +143,26 @@ function drop(){if(state!=='playing'||!active)return;
   // Preserve the tower; only the unsupported cupcake tumbles away.
   blocks.push(miss);
   state='falling';fallTime=0;shake=5;hint.textContent='';
-  setTimeout(()=>{state='over';document.getElementById('result').textContent=`You stacked ${score} cupcake${score===1?'':'s'}! The last cupcake missed its support.`;overEl.classList.remove('hidden')},1050);
+  setTimeout(()=>{state='over';document.getElementById('result').textContent=`You stacked ${score} cupcake${score===1?'':'s'}! The last cupcake missed its support.`;overEl.classList.remove('hidden');document.getElementById('nickname').value=localStorage.getItem('sugartechCupcakeName')||''},1050);
   return;
  }
- const deadZone=target.w*.22;
- const balanceX=targetX+Math.sign(dx)*Math.max(0,Math.abs(dx)-deadZone);
- const newBlock={x:landedX,balanceX,y:target.y-57,w:landedW,h:landedH,color:landedColor,angle:lean,offset:dx/target.w,falling:false};
+ // Land at the player's exact x-coordinate. Accuracy affects stability,
+ // but earlier mistakes fade instead of permanently dooming a tall tower.
+ const normalized=dx/(target.w*.5);
+ const accuracy=Math.abs(dx)/target.w;
+ const newBlock={x:landedX,y:target.y-57,w:landedW,h:landedH,color:landedColor,angle:lean,offset:normalized,falling:false};
  blocks.push(newBlock);score++;scoreEl.textContent=score;
  if(score>best){best=score;bestEl.textContent=best;localStorage.setItem('sugartechCupcakeBest',best)}
- const base=blocks[0],totalMass=blocks.reduce((sum,b,i)=>sum+1+i*.075,0);
- const moment=blocks.reduce((sum,b,i)=>sum+((b.balanceX??b.x)-base.x)*(1+i*.075),0);
- const comOffset=moment/totalMass;
- leanTarget=Math.max(-.18,Math.min(.18,(comOffset/(base.w*.42))*.18));
- burst(newBlock.x,newBlock.y-25,newBlock.color[0],9);
- if(Math.abs(comOffset)>base.w*.43){collapse();return}
+ // Small, accurate drops actively settle the tower. Repeated off-center
+ // drops add directional imbalance; opposite-side drops can correct it.
+ const correction=accuracy<.09?.58:accuracy<.17?.78:.90;
+ balance=balance*correction+Math.sign(dx)*Math.max(0,Math.abs(normalized)-.12)*.26;
+ leanTarget=Math.max(-.16,Math.min(.16,balance*.12));
+ burst(newBlock.x,newBlock.y-25,newBlock.color[0],accuracy<.09?16:9);
+ if(Math.abs(balance)>1.55){collapse();return}
  setTimeout(()=>{if(state==='playing'&&!active)spawn()},180);
 }
-function collapse(){state='falling';fallTime=0;shake=13;hint.textContent='';blocks.forEach((b,i)=>{if(i>0){b.vx=(b.x-W/2)*.018+leanVel*90+(Math.random()-.5)*2;b.vy=-Math.random()*2;b.spin=(Math.random()-.5)*.13;b.falling=true}});setTimeout(()=>{state='over';document.getElementById('result').textContent=`You stacked ${score} cupcake${score===1?'':'s'}! ${score>=best&&score>0?'A new personal best!':'Can you bake an even taller tower?'}`;overEl.classList.remove('hidden')},1050)}
+function collapse(){state='falling';fallTime=0;shake=13;hint.textContent='';blocks.forEach((b,i)=>{if(i>0){b.vx=(b.x-W/2)*.018+leanVel*90+(Math.random()-.5)*2;b.vy=-Math.random()*2;b.spin=(Math.random()-.5)*.13;b.falling=true}});setTimeout(()=>{state='over';document.getElementById('result').textContent=`You stacked ${score} cupcake${score===1?'':'s'}! ${score>=best&&score>0?'A new personal best!':'Can you bake an even taller tower?'}`;overEl.classList.remove('hidden');document.getElementById('nickname').value=localStorage.getItem('sugartechCupcakeName')||''},1050)}
 function burst(x,y,color,n){for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.random()-.5)*5,vy:-Math.random()*4-1,life:35+Math.random()*20,color,size:2+Math.random()*3})}
 function visualCenter(b){
  const pivotY=blocks[0]?.y||H-105;
@@ -141,7 +170,7 @@ function visualCenter(b){
  const towerHeight=Math.max(1,pivotY-topY);
  const relY=Math.max(0,pivotY-b.y);
  const fraction=Math.min(1,relY/towerHeight);
- return b.x+Math.sin(lean*fraction)*relY*.30;
+ return b.x+Math.sin(lean*fraction)*Math.min(relY,250)*.45;
 }
 function drawCupcake(x,y,w,h,color,angle=0,alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.translate(x,y);ctx.rotate(angle);
  // wrapper
@@ -152,7 +181,7 @@ function drawCupcake(x,y,w,h,color,angle=0,alpha=1){ctx.save();ctx.globalAlpha=a
  ctx.beginPath();ctx.arc(-w*.13,-h*.35,3,0,Math.PI*2);ctx.fillStyle='#fff7e8';ctx.fill();ctx.beginPath();ctx.arc(w*.18,-h*.2,2,0,Math.PI*2);ctx.fill();
  ctx.restore()}
 function drawBackground(){
- const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#3c2749');g.addColorStop(.7,'#56334f');g.addColorStop(1,'#2b1a37');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#342545');g.addColorStop(.7,'#48314e');g.addColorStop(1,'#291d39');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
  // Parallax scenery repeats forever as the camera climbs.
  const scroll=(cameraY*.62)%260;
  for(let i=0;i<32;i++){
@@ -201,7 +230,7 @@ function update(){frame++;
   leanVel*=.78;
   lean+=leanVel;
   lean=Math.max(-.19,Math.min(.19,lean));
-  if(Math.abs(leanTarget)>.179)collapse();
+  // Collapse is decided on landing, not by a stale lean animation.
  }else if(state==='falling'){
   fallTime++;blocks.forEach((b,i)=>{if(i>0&&b.falling){b.vy=(b.vy||0)+.34;b.x+=b.vx||0;b.y+=b.vy;b.angle=(b.angle||0)+(b.spin||0);b.vx*=.995}});
   shake*=.88;
@@ -214,7 +243,40 @@ function update(){frame++;
 function loop(){update();ctx.save();if(shake>0)ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);draw();ctx.restore();requestAnimationFrame(loop)}
 function action(){if(state==='playing')drop()}
 canvas.addEventListener('pointerdown',e=>{e.preventDefault();action()});
-window.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();action()}});
+window.addEventListener('keydown',e=>{if((e.code==='Space'||e.code==='Enter')&&!e.repeat&&!['INPUT','BUTTON','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();action()}});
+// Public leaderboard uses Supabase REST/RPC. Never expose secret/service-role keys.
+const leaderKey='sugartechCupcakeLeaderboardV1';
+const cfg=window.SUGARTECH_SUPABASE||{};
+const online=Boolean(/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test((cfg.url||'').replace(/\/$/,''))&&cfg.anonKey);
+let boardTab='all',adminUnlocked=false,staffToken='',currentEvent=null,boardRows=[];
+const $=id=>document.getElementById(id);
+const apiRoot=(cfg.url||'').replace(/\/$/,'');
+function getLeaders(){try{const rows=JSON.parse(localStorage.getItem(leaderKey)||'[]');return Array.isArray(rows)?rows.filter(r=>r&&typeof r.name==='string'&&Number.isFinite(r.score)).slice(0,10):[]}catch{return []}}
+function saveLeaders(rows){rows.sort((a,b)=>b.score-a.score||(a.when||0)-(b.when||0));localStorage.setItem(leaderKey,JSON.stringify(rows.slice(0,10)))}
+async function request(path,{method='GET',body,auth=false}={}){
+ const res=await fetch(apiRoot+path,{method,headers:{'apikey':cfg.anonKey,'Authorization':'Bearer '+(auth?staffToken:cfg.anonKey),'Content-Type':'application/json',...(method==='POST'?{'Prefer':'return=representation'}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+ let data;try{data=await res.json()}catch{data=null}
+ if(!res.ok)throw Error(data?.message||data?.error_description||data?.hint||'Server error '+res.status);
+ return data;
+}
+async function loadEvent(){if(!online)return null;const rows=await request('/rest/v1/events?select=id,name,starts_at,ends_at&order=starts_at.desc&limit=1');const now=Date.now();currentEvent=(rows||[]).find(e=>new Date(e.starts_at).getTime()<=now&&new Date(e.ends_at).getTime()>now)||null;return currentEvent}
+function eventLabel(){if(!currentEvent)return 'No event running right now';const left=Math.max(0,Math.ceil((new Date(currentEvent.ends_at).getTime()-Date.now())/60000));return `${currentEvent.name} · ${left} min left`}
+function renderLeaders(){const list=$('leaderList');list.replaceChildren();$('eventBanner').classList.toggle('hidden',boardTab!=='event');$('eventBanner').textContent=eventLabel();$('tabAll').classList.toggle('selected',boardTab==='all');$('tabEvent').classList.toggle('selected',boardTab==='event');const rows=boardRows;if(!rows.length){const empty=document.createElement('div');empty.className='leader-empty';empty.textContent=boardTab==='event'&&!currentEvent?'No event is currently active.':'No scores yet. Be the first!';list.append(empty);return}
+ rows.forEach((r,i)=>{const line=document.createElement('div');line.className='leader-row';const rank=document.createElement('span');rank.textContent=['🥇','🥈','🥉'][i]||String(i+1)+'.';const name=document.createElement('span');name.textContent=r.name;const scoreNode=document.createElement('strong');scoreNode.textContent=r.score;line.append(rank,name,scoreNode);if(adminUnlocked){const wrap=document.createElement('div');wrap.className='admin-row';wrap.append(line);const del=document.createElement('button');del.className='admin-delete';del.textContent='DELETE';del.onclick=async()=>{if(!confirm(`Delete ${r.name} — ${r.score} cupcakes?`))return;try{if(online)await request('/rest/v1/rpc/staff_delete_score',{method:'POST',body:{p_id:r.id},auth:true});else{const all=getLeaders();all.splice(i,1);saveLeaders(all)}await refreshBoard()}catch(e){alert(e.message)}};wrap.append(del);list.append(wrap)}else list.append(line)})}
+async function refreshBoard(){if(!online){boardRows=boardTab==='all'?getLeaders():[];$('boardStatus').textContent='Offline/local mode · scores saved on this browser';currentEvent=null;renderLeaders();return}
+ $('boardStatus').textContent='Loading shared leaderboard…';try{await loadEvent();if(boardTab==='event'&&!currentEvent){boardRows=[]}else{const filter=boardTab==='event'?`&event_id=eq.${encodeURIComponent(currentEvent.id)}`:'';boardRows=await request('/rest/v1/scores?select=id,name,score,created_at,event_id'+filter+'&order=score.desc,created_at.asc&limit=10')};$('boardStatus').textContent='Online · shared across devices';renderLeaders()}catch(e){boardRows=[];$('boardStatus').textContent='Cannot reach online leaderboard: '+e.message;renderLeaders()}}
+async function openLeaders(from){leaderReturn=from;$(from).classList.add('hidden');$('leaders').classList.remove('hidden');await refreshBoard()}
+$('tabAll').onclick=()=>{boardTab='all';refreshBoard()};$('tabEvent').onclick=()=>{boardTab='event';refreshBoard()};
+$('manageLeaders').onclick=()=>{$('adminTools').classList.toggle('hidden');$('staffLogin').classList.toggle('hidden',adminUnlocked);$('staffPanel').classList.toggle('hidden',!adminUnlocked)};
+$('adminDone').onclick=()=>{$('adminTools').classList.add('hidden')};
+$('staffSignIn').onclick=async()=>{if(!online){alert('Connect Supabase before using online staff tools.');return}try{const res=await fetch(apiRoot+'/auth/v1/token?grant_type=password',{method:'POST',headers:{'apikey':cfg.anonKey,'Content-Type':'application/json'},body:JSON.stringify({email:$('staffEmail').value.trim(),password:$('staffPassword').value})});const data=await res.json();if(!res.ok)throw Error(data.error_description||data.msg||'Sign in failed');staffToken=data.access_token;await request('/rest/v1/rpc/staff_check',{method:'POST',body:{},auth:true});adminUnlocked=true;$('staffPassword').value='';$('staffLogin').classList.add('hidden');$('staffPanel').classList.remove('hidden');$('staffStatus').textContent='Signed in as authorized staff';renderLeaders()}catch(e){staffToken='';adminUnlocked=false;alert(e.message)}};
+$('staffSignOut').onclick=()=>{staffToken='';adminUnlocked=false;$('staffPanel').classList.add('hidden');$('staffLogin').classList.remove('hidden');renderLeaders()};
+$('adminAdd').onclick=async()=>{if(!adminUnlocked)return;const name=$('adminName').value.trim().replace(/\s+/g,' ').slice(0,16),points=Number($('adminScore').value);if(!name||!Number.isSafeInteger(points)||points<0||points>999999){alert('Enter a nickname and valid whole-number score.');return}try{await request('/rest/v1/rpc/staff_add_score',{method:'POST',body:{p_name:name,p_score:points},auth:true});$('adminName').value='';$('adminScore').value='';await refreshBoard()}catch(e){alert(e.message)}};
+$('eventStart').onclick=async()=>{if(!adminUnlocked)return;const name=$('eventName').value.trim(),minutes=Number($('eventMinutes').value);if(!name||name.length>60||!Number.isInteger(minutes)||minutes<5||minutes>10080){alert('Provide a name and duration between 5 and 10080 minutes.');return}try{await request('/rest/v1/rpc/staff_start_event',{method:'POST',body:{p_name:name,p_minutes:minutes},auth:true});boardTab='event';await refreshBoard()}catch(e){alert(e.message)}};
+$('eventEnd').onclick=async()=>{if(!adminUnlocked)return;if(!currentEvent){alert('No event is active.');return}if(!confirm('End this event now? Its scores will be preserved.'))return;try{await request('/rest/v1/rpc/staff_end_event',{method:'POST',body:{p_event_id:currentEvent.id},auth:true});await refreshBoard()}catch(e){alert(e.message)}};
+$('showLeaders').onclick=()=>openLeaders('start');$('viewLeaders').onclick=()=>openLeaders('over');$('closeLeaders').onclick=()=>{$('leaders').classList.add('hidden');$(leaderReturn).classList.remove('hidden')};
+$('saveScore').onclick=async()=>{if(submitted||state!=='over')return;const name=$('nickname').value.trim().replace(/\s+/g,' ').slice(0,16);if(!name){$('nickname').focus();return}const btn=$('saveScore');btn.disabled=true;btn.textContent='SAVING…';try{localStorage.setItem('sugartechCupcakeName',name);if(online){await request('/rest/v1/rpc/submit_score',{method:'POST',body:{p_name:name,p_score:score}})}else{const rows=getLeaders();rows.push({name,score,when:Date.now()});saveLeaders(rows)}submitted=true;$('scoreSubmit').classList.add('hidden');await openLeaders('over')}catch(e){alert('Score not saved: '+e.message)}finally{btn.disabled=false;btn.textContent='SAVE SCORE'}};
+
 document.getElementById('play').onclick=start;document.getElementById('again').onclick=start;
 document.getElementById('home').onclick=()=>{state='menu';overEl.classList.add('hidden');startEl.classList.remove('hidden');resetWorld()};
 document.getElementById('how').onclick=()=>helpEl.classList.remove('hidden');document.getElementById('gotit').onclick=()=>helpEl.classList.add('hidden');
