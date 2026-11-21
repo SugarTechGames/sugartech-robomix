@@ -26,8 +26,8 @@ header{text-align:center;margin:5px 0 15px}
 .stage:after{content:"";position:absolute;left:15%;right:15%;bottom:16px;height:1px;background:#a34dff66}
 .glass-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .glass-svg{height:265px;width:250px;overflow:visible;filter:drop-shadow(0 0 12px #00dcff55)}
-.target-label{position:absolute;right:calc(50% - 155px);top:50%;transform:translateY(-50%);font-size:10px;letter-spacing:1px;color:#9ceeff;text-align:left;white-space:nowrap}
-.target-label:before{content:"";position:absolute;right:100%;top:50%;width:52px;border-top:2px dashed #00dcff;margin-right:8px;filter:drop-shadow(0 0 5px #00dcff)}
+.target-label{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;letter-spacing:1px;color:#9ceeff;text-align:left;white-space:nowrap;background:#0c1025e6;border:1px solid #00dcff88;padding:5px 7px;border-radius:6px;z-index:2}
+.target-label:before{display:none}
 .readout{position:absolute;left:15px;top:15px;padding:8px 11px;border:1px solid #a34dff;border-radius:10px;background:#100d22dd;min-width:100px}
 .readout small{display:block;font-size:9px;color:#bdb7d7;letter-spacing:1.5px}.readout strong{font-size:19px;color:#fff}
 .flow-indicator{position:absolute;right:15px;top:15px;text-align:right;color:#ff9ce4;font-size:10px;letter-spacing:1px}
@@ -53,10 +53,61 @@ input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;bac
 .overlay{position:fixed;inset:0;background:#03030add;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
 .modal{max-width:430px;width:100%;text-align:center;padding:28px;border:1px solid var(--pink);border-radius:20px;background:#100d22;box-shadow:0 0 30px #ff28b966}
 .modal h2{margin:0 0 8px;color:#ff8ddd;font-size:30px}.modal p{color:#d7d3e8;line-height:1.5}
-@media(max-width:600px){body{padding:8px}.panel{padding:9px}.stage{height:280px}.glass-svg{height:235px;width:215px}.target-label{right:calc(50% - 137px);font-size:8px}.target-label:before{width:30px}.stat{min-width:75px;padding:7px 9px}.stat strong{font-size:19px}.control-box{padding:13px 12px}input[type=range]{height:15px}input[type=range]::-webkit-slider-thumb{width:35px;height:35px}}
+@media(max-width:600px){body{padding:8px}.panel{padding:9px}.stage{height:280px}.glass-svg{height:235px;width:215px}.target-label{right:6px;font-size:9px}.stat{min-width:75px;padding:7px 9px}.stat strong{font-size:19px}.control-box{padding:13px 12px}input[type=range]{height:15px}input[type=range]::-webkit-slider-thumb{width:35px;height:35px}}
 
 .music-toggle{position:fixed;top:12px;right:12px;z-index:20;border:1px solid #ff8ddd;border-radius:999px;padding:8px 12px;background:#160d26eF;color:#fff;font-weight:800;font-size:11px;letter-spacing:.06em;box-shadow:0 0 12px #ff28b966;cursor:pointer}
 .music-toggle[aria-pressed="false"]{border-color:#8d83a8;color:#c9c1d8;box-shadow:none}
+
+/* Shared SugarTech visual language with RoboMix; distinct precision-bar layout. */
+:root{--pink:#ff4eaf;--cyan:#7bffe0;--purple:#b979dc;--bg:#100b1d;--text:#fff7ff;--muted:#c6b5d5;--panel:#1c1430;--line:#48335c}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% -15%,#4e215f 0,transparent 58%),var(--bg);padding:18px 16px 30px}
+.wrap{max-width:850px}
+header{text-align:left;margin:0 0 15px;display:flex;align-items:baseline;gap:15px;flex-wrap:wrap}
+.logo{font-size:24px;letter-spacing:-1px;text-shadow:none;line-height:1.2}
+.logo span{color:var(--pink)}
+.sub{font-size:10px;letter-spacing:.18em;color:var(--muted);margin:0}
+.stats{justify-content:flex-start;gap:8px;margin:0 0 13px}
+.stat{min-width:90px;padding:8px 12px;background:#241a38;border:1px solid #52365f;border-radius:13px;box-shadow:none}
+.stat small{color:#c5b0d1;letter-spacing:.12em}.stat strong{font-size:20px;text-shadow:none}
+.panel{border:0;border-radius:0;padding:0;background:transparent;box-shadow:none}
+.order{margin:0 0 13px;text-align:left;padding:15px 17px;background:linear-gradient(120deg,#39203f,#251b3d);border:1px solid #69416d;border-radius:19px}
+.order .eyebrow{color:#f6b8df;font-size:10px;letter-spacing:.13em}
+.order h2{font-size:20px;color:#fff7ff;text-shadow:none;margin:5px 0 4px}
+.order p{color:#f0d4ee;font-size:13px}
+.stage{height:330px;margin-top:0;border:1px solid #553c66;border-radius:22px;background:radial-gradient(ellipse at 52% 45%,#352047,#1a142a 72%)}
+.stage:before{inset:0;bottom:auto;height:100%;left:0;right:0;border:0;background:linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:30px 30px;box-shadow:none;mask-image:linear-gradient(transparent,#000)}
+.stage:after{left:5%;right:5%;bottom:26px;height:12px;border-radius:8px;background:linear-gradient(#a47ca9,#593c69);box-shadow:0 12px 24px #0007}
+.glass-svg{filter:drop-shadow(0 7px 7px #0006)}
+.target-label{background:#173b3b;border:1px solid #7bffe0;color:#c6fff1;font-weight:800;box-shadow:0 0 0 3px #7bffe016;border-radius:9px}
+.readout{background:#241a38e8;border:1px solid #65436f;border-radius:12px}.readout small{color:#c5b0d1}
+.flow-indicator{color:#f6b8df}
+.control-box{margin-top:13px;border:1px solid #65436f;border-radius:18px;background:linear-gradient(120deg,#30213f,#241a36);box-shadow:none;padding:17px}
+.control-head{color:#e9d6ee}.control-head strong{color:#fff;text-shadow:none}
+input[type=range]{background:linear-gradient(90deg,#7bffe0 0%,#b979dc 50%,#ff4eaf 100%);box-shadow:none}
+input[type=range]::-webkit-slider-thumb{background:linear-gradient(135deg,#fff6f9,#ff4eaf);box-shadow:0 0 0 4px #ff4eaf22,0 4px 12px #0005}
+input[type=range]::-moz-range-thumb{background:linear-gradient(135deg,#fff6f9,#ff4eaf);box-shadow:0 0 0 4px #ff4eaf22,0 4px 12px #0005}
+.slider-control.pouring{border-color:#ff4eaf;box-shadow:inset 0 0 0 1px #ff4eaf55}
+.pour-caption,.help{color:#c6b5d5}.feedback{color:#7bffe0}
+.action{background:linear-gradient(100deg,#ff4eaf,#ff7b9d);border-radius:14px;box-shadow:none;padding:12px 22px}
+.action.alt{border:1px solid #65436f;color:#f0d4ee;background:#241a38;box-shadow:none}
+.music-toggle{position:fixed;top:12px;right:12px;border:1px solid #65436f;border-radius:12px;background:#241a38;color:#ffe3f4;box-shadow:none;z-index:20}
+.modal{background:#241a38;border:1px solid #69416d;box-shadow:0 18px 55px #0008}.modal h2{color:#ff9bd4}
+@media(max-width:600px){body{padding:14px 9px 25px}header{padding-right:102px;gap:5px}.logo{font-size:22px}.sub{font-size:9px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.stat{min-width:0;padding:8px 3px}.stat small{font-size:8px;letter-spacing:0}.stat strong{font-size:19px}.order{padding:13px}.stage{height:290px}.control-box{padding:13px}.target-label{font-size:9px}}
+
+/* Dynamic pour and outcome feedback */
+.stream{width:var(--stream-width,9px);height:var(--stream-height,95px);top:var(--stream-top,12px);border-radius:12px;z-index:3;pointer-events:none;transition:opacity .09s,width .12s,height .12s;filter:drop-shadow(0 0 4px var(--drink))}
+.stream.active{animation:streamWobble .14s infinite alternate}
+@keyframes streamWobble{from{transform:translateX(-50%) skewX(-1deg)}to{transform:translateX(-50%) skewX(1deg)}}
+.splash{position:absolute;left:50%;top:var(--splash-top,120px);width:80px;height:25px;transform:translateX(-50%);z-index:4;pointer-events:none;opacity:0}
+.splash.active{opacity:1}
+.splash i{position:absolute;bottom:0;left:50%;width:var(--drop-size,5px);height:var(--drop-size,5px);background:var(--drink);border:1px solid #fff9;border-radius:50%;box-shadow:0 0 5px var(--drink);animation:splashFly .44s ease-out infinite;animation-delay:var(--delay,0s)}
+@keyframes splashFly{0%{transform:translate(0,0) scale(.6);opacity:0}20%{opacity:.9}100%{transform:translate(var(--dx,20px),var(--dy,-18px)) scale(.35);opacity:0}}
+.stage.perfect{animation:perfectGlow .7s ease-out}
+@keyframes perfectGlow{0%,100%{box-shadow:inset 0 0 0 transparent}30%{box-shadow:inset 0 0 65px #7bffe044,0 0 25px #7bffe088}}
+.result-pop{position:absolute;left:50%;top:35%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;white-space:nowrap;text-align:center;font-size:clamp(20px,4vw,31px);font-weight:1000;color:#fff;text-shadow:0 3px 10px #000,0 0 20px var(--pink);animation:resultAppear .8s ease-out both}
+.result-pop small{display:block;margin-top:5px;font-size:13px;color:#c6fff1;letter-spacing:.08em}
+@keyframes resultAppear{0%{opacity:0;transform:translate(-50%,-30%) scale(.75)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-75%) scale(1)}}
+@media(prefers-reduced-motion:reduce){.stream.active,.splash i,.stage.perfect,.result-pop{animation:none}}
 </style>
 </head>
 <body>
@@ -74,7 +125,7 @@ input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;bac
  <div class="stage" id="stage">
   <div class="readout"><small>FILL LEVEL</small><strong id="fillText">0%</strong></div>
   <div class="flow-indicator" id="flowText">POUR SPEED<br><b>MEDIUM</b></div>
-  <div class="stream" id="stream"></div>
+  <div class="stream" id="stream"></div><div class="splash" id="splash" aria-hidden="true"></div>
   <div class="glass-wrap" id="glassWrap"></div>
   <div class="target-label" id="targetLabel">TARGET</div>
  </div>
@@ -82,7 +133,7 @@ input[type=range]::-moz-range-thumb{width:25px;height:25px;border-radius:50%;bac
   <div class="control-head"><span>TOUCH & SLIDE TO POUR</span><strong id="speedValue">50%</strong></div>
   <input id="speed" type="range" min="1" max="100" value="50" aria-label="Pour speed">
   <div class="scale"><span>◀ SLOW & SAFE</span><span>FAST & RISKY ▶</span></div>
-  <div class="pour-caption" id="pourCaption">Touch the slider to start pouring. Keep moving to control the speed; release to stop.</div>
+  <div class="pour-caption" id="pourCaption">Touch the slider to start pouring. Move to control the speed; release slightly early to account for the final drops.</div>
  </div>
  <div class="feedback" id="feedback">Press START SHIFT to begin!</div>
  <div class="actions"><button class="action" id="startBtn" onclick="startGame()">START SHIFT</button><button class="action alt" onclick="resetGame()">RESET</button></div>
@@ -144,59 +195,79 @@ const glasses=[
  {name:'THE TALL TULIP',shape:'tulip',capacity:115,top:32,bottom:210,width:120}
 ];
 const $=id=>document.getElementById(id);
-let score=0,timeLeft=60,drinksMade=0,lives=3,playing=false,pouring=false,fill=0,target=0,glass=null,drink=null,roundDone=false,timer=null,raf=null,last=0,roundStart=0,holdStart=0,spillPenalty=0;
+let score=0,timeLeft=60,drinksMade=0,lives=3,playing=false,pouring=false,fill=0,target=0,glass=null,drink=null,roundDone=false,timer=null,raf=null,last=0,roundStart=0,holdStart=0,spillPenalty=0,settling=false,settleAmount=0,lastFlow=0,roundToken=0; 
 function rand(a){return a[Math.floor(Math.random()*a.length)]}
-function glassPath(g){
- const s=g.shape;
- if(s==='highball')return 'M88 28 L162 28 L151 211 Q125 224 99 211 Z';
- if(s==='martini')return 'M45 43 L205 43 L132 126 L132 191 L166 197 L166 207 L84 207 L84 197 L118 191 L118 126 Z';
- if(s==='coupe')return 'M48 55 Q125 170 202 55 Q195 122 137 135 L137 191 L164 197 L164 207 L86 207 L86 197 L113 191 L113 135 Q55 122 48 55 Z';
- if(s==='hurricane')return 'M85 28 Q72 61 90 91 Q101 112 79 151 Q64 181 93 211 L157 211 Q186 181 171 151 Q149 112 160 91 Q178 61 165 28 Z';
- if(s==='rocks')return 'M65 88 L185 88 L175 211 Q125 222 75 211 Z';
- return 'M85 28 Q56 61 75 105 Q88 139 69 173 Q66 200 92 211 L158 211 Q184 200 181 173 Q162 139 175 105 Q194 61 165 28 Z';
+// Each glass has its own liquid-holding bowl. Stems and bases never fill.
+const glassArt={
+ highball:{top:30,bottom:210,bowl:'M88 30 L162 30 L153 207 Q125 218 97 207 Z',foot:'',width:y=>{let t=Math.max(0,Math.min(1,(y-30)/177));return [88+9*t,162-9*t]}},
+ martini:{top:46,bottom:128,bowl:'M46 46 L204 46 L130 128 Q125 132 120 128 Z',foot:'M120 128 L120 194 L87 200 L87 207 L163 207 L163 200 L130 194 L130 128',width:y=>{let t=Math.max(0,Math.min(1,(y-46)/82));return [46+74*t,204-74*t]}},
+ coupe:{top:58,bottom:139,bowl:'M48 58 C57 107 82 136 125 139 C168 136 193 107 202 58 Z',foot:'M120 139 L120 194 L87 200 L87 207 L163 207 L163 200 L130 194 L130 139',width:y=>{let t=Math.max(0,Math.min(1,(y-58)/81));let w=77*Math.sqrt(Math.max(0,1-t*t));return [125-w,125+w]}},
+ hurricane:{top:30,bottom:209,bowl:'M86 30 C75 60 80 82 91 103 C104 125 82 144 82 167 C80 192 94 208 125 209 C156 208 170 192 168 167 C168 144 146 125 159 103 C170 82 175 60 164 30 Z',foot:'',width:y=>{let ys=[30,60,103,125,167,190,209],ws=[39,45,34,29,43,40,0];let k=ys.findIndex(v=>v>=y);if(k<1)k=1;let t=Math.max(0,Math.min(1,(y-ys[k-1])/(ys[k]-ys[k-1])));let w=ws[k-1]+(ws[k]-ws[k-1])*t;return [125-w,125+w]}},
+ rocks:{top:90,bottom:209,bowl:'M65 90 L185 90 L175 207 Q125 218 75 207 Z',foot:'',width:y=>{let t=Math.max(0,Math.min(1,(y-90)/119));return [65+10*t,185-10*t]}},
+ tulip:{top:30,bottom:208,bowl:'M85 30 C62 60 64 91 78 111 C91 134 72 151 72 172 C72 196 90 208 125 208 C160 208 178 196 178 172 C178 151 159 134 172 111 C186 91 188 60 165 30 Z',foot:'',width:y=>{let ys=[30,60,111,135,172,195,208],ws=[40,52,47,40,53,43,0];let k=ys.findIndex(v=>v>=y);if(k<1)k=1;let t=Math.max(0,Math.min(1,(y-ys[k-1])/(ys[k]-ys[k-1])));let w=ws[k-1]+(ws[k]-ws[k-1])*t;return [125-w,125+w]}}
+};
+function updatePourVisual(){
+ const v=Number($('speed').value),power=Math.pow(v/100,1.45),stage=$('stage');
+ stage.style.setProperty('--stream-width',(3+power*19).toFixed(1)+'px');
+ const a=glass&&glassArt[glass.shape];
+ if(a){const svg=$('glassWrap').querySelector('svg');if(svg){const r=svg.getBoundingClientRect(),sr=stage.getBoundingClientRect();const top=r.top-sr.top+r.height*a.top/245;stage.style.setProperty('--stream-height',Math.max(10,top-12)+'px');stage.style.setProperty('--splash-top',(top+4)+'px');}}
+ const splash=$('splash');
+ splash.classList.toggle('active',pouring&&v>32);
+ if(pouring&&v>32){splash.innerHTML=Array.from({length:Math.round(2+power*7)},(_,i)=>`<i style="--dx:${(i%2?-1:1)*(8+(i*13)%30)}px;--dy:${-9-(i*7)%24}px;--delay:${-(i*.071)%0.44}s;--drop-size:${3+Math.round(power*4)}px"></i>`).join('');}
+ else splash.innerHTML='';
 }
-function liquidPath(g,pct){
- const bottom=211,top=32,level=bottom-(bottom-top)*pct/100;
- const s=g.shape;
- if(s==='martini')return `M${125-80*pct/100} ${level} L${125+80*pct/100} ${level} L125 126 Z`;
- if(s==='coupe')return `M${125-76*pct/100} ${level} Q125 ${Math.min(170,level+45)} ${125+76*pct/100} ${level} L125 135 Z`;
- if(s==='highball')return `M${90+(level-28)*.06} ${level} L${160-(level-28)*.06} ${level} L151 211 Q125 224 99 211 Z`;
- if(s==='rocks')return `M${65+(level-88)*.08} ${level} L${185-(level-88)*.08} ${level} L175 211 Q125 222 75 211 Z`;
- if(s==='hurricane')return `M${85+(level-28)*.12} ${level} L${165-(level-28)*.12} Q178 61 160 91 Q149 112 171 151 Q186 181 157 211 L93 211 Q64 181 79 151 Q101 112 90 91 Q72 61 85 28 Z`;
- return `M${85+(level-28)*.12} ${level} L${165-(level-28)*.12} Q194 61 175 105 Q162 139 181 173 Q184 200 158 211 L92 211 Q66 200 69 173 Q88 139 75 105 Q56 61 85 28 Z`;
+function showResult(message,points,perfect=false){
+ const stage=$('stage');stage.querySelector('.result-pop')?.remove();stage.classList.remove('perfect');
+ if(perfect){void stage.offsetWidth;stage.classList.add('perfect');}
+ const el=document.createElement('div');el.className='result-pop';el.textContent=message;
+ if(points!==null){const sub=document.createElement('small');sub.textContent=points>0?'+'+points+' POINTS':'TRY AGAIN';el.appendChild(sub);}
+ stage.appendChild(el);setTimeout(()=>el.remove(),820);
 }
 function renderGlass(){
- const d=drink, g=glass, p=Math.min(100,fill);
- const path=glassPath(g), liquid=liquidPath(g,p);
- const topY=211-179*target/100;
- const svg=`<svg class="glass-svg" viewBox="0 0 250 245" role="img" aria-label="${g.name}">
- <defs><linearGradient id="glassGrad" x1="0" x2="1"><stop offset="0" stop-color="#bffaff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#bffaff" stop-opacity=".3"/></linearGradient>
- <linearGradient id="liq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${d.color}"/><stop offset="1" stop-color="${d.dark}"/></linearGradient>
- <clipPath id="clip"><path d="${path}"/></clipPath></defs>
- <g clip-path="url(#clip)">
- <path d="${liquid}" fill="url(#liq)" opacity=".95"/>
- <path d="M0 ${211-179*p/100} Q125 ${205-179*p/100} 250 ${211-179*p/100}" fill="none" stroke="#fff9" stroke-width="3"/>
- <path d="M0 ${topY} H250" stroke="#00e5ff" stroke-width="2.5" stroke-dasharray="6 5" opacity=".95"/>
+ const d=drink,g=glass,p=Math.max(0,Math.min(100,fill)),a=glassArt[g.shape];
+ const targetY=a.bottom-(a.bottom-a.top)*target/100;
+ const liquidY=a.bottom-(a.bottom-a.top)*p/100;
+ const [left,right]=a.width(targetY);
+ const [liqLeft,liqRight]=a.width(liquidY);
+ const uid='glass-'+g.shape;
+ const liquidVisible=p>0;
+ const svg=`<svg class="glass-svg" viewBox="0 0 250 245" role="img" aria-label="${g.name}, ${Math.round(fill)} percent full, target ${target} percent">
+ <defs>
+  <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#baf4ff" stop-opacity=".27"/><stop offset=".45" stop-color="#fff" stop-opacity=".025"/><stop offset="1" stop-color="#d5faff" stop-opacity=".25"/></linearGradient>
+  <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${d.color}"/><stop offset="1" stop-color="${d.dark}"/></linearGradient>
+  <clipPath id="${uid}"><path d="${a.bowl}"/></clipPath>
+ </defs>
+ ${a.foot?`<path d="${a.foot}" fill="none" stroke="#b9e9f6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>`:''}
+ <g clip-path="url(#${uid})">
+  ${liquidVisible?`<rect x="0" y="${liquidY}" width="250" height="${a.bottom-liquidY+18}" fill="url(#liq)" opacity=".93"/>
+  <path d="M${liqLeft} ${liquidY} Q125 ${liquidY-3} ${liqRight} ${liquidY}" fill="none" stroke="#fff" stroke-width="2.5" opacity=".65"/>`:''}
+  <path d="M0 ${targetY} H250" fill="none" stroke="#00edff" stroke-width="3" stroke-dasharray="7 4"/>
  </g>
- <path d="${path}" fill="url(#glassGrad)" stroke="#d9faff" stroke-width="4" stroke-linejoin="round"/>
- <path d="${path}" fill="none" stroke="${d.color}" stroke-width="1.5" opacity=".8"/>
- <path d="M${g.shape==='martini'?125:91} 38 L${g.shape==='martini'?125:98} 170" stroke="#fff" stroke-width="3" opacity=".35"/>
+ <path d="${a.bowl}" fill="url(#glassGrad)" stroke="#dcfaff" stroke-width="3.5" stroke-linejoin="round"/>
+ <path d="M${left-10} ${targetY} H${left+7} M${right-7} ${targetY} H${right+10}" fill="none" stroke="#00edff" stroke-width="4" stroke-linecap="round"/>
+ <path d="${a.bowl}" fill="none" stroke="${d.color}" stroke-width="1" opacity=".4"/>
  <text x="125" y="237" fill="#baf8ff" font-size="9" text-anchor="middle" letter-spacing="2">${g.name}</text>
  </svg>`;
  $('glassWrap').innerHTML=svg;
- $('targetLabel').style.top=`${Math.max(15,Math.min(83,50+(50-target)*1.25))}%`;
+ // Label is tied to the same SVG coordinate as the line, not a guessed percentage.
+ const wrap=$('glassWrap');
+ const svgEl=wrap.querySelector('svg');
+ const rect=svgEl.getBoundingClientRect();
+ const stageRect=$('stage').getBoundingClientRect();
+ $('targetLabel').style.top=`${rect.top-stageRect.top+rect.height*targetY/245}px`;
  $('targetLabel').textContent=`TARGET ${target}%`;
  $('stage').style.setProperty('--drink',d.color);
  $('fillText').textContent=Math.round(fill)+'%';
+ updatePourVisual();
 }
 function newRound(){
- glass=rand(glasses);drink=rand(drinks);fill=0;roundDone=false;pouring=false;
+ glass=rand(glasses);drink=rand(drinks);fill=0;roundDone=false;pouring=false;settling=false;settleAmount=0;roundToken++;
  // Keep target safely below the rim and vary the required amount by glass.
  target=Math.floor(62+Math.random()*25);
  $('glassName').textContent=glass.name;
  $('drinkName').textContent=drink.name+' · Fill to the glowing line';
  $('sliderControl').classList.remove('disabled');
- $('stream').classList.remove('active');
+ $('stream').classList.remove('active');$('splash').classList.remove('active');$('stage').classList.remove('perfect');$('stage').querySelector('.result-pop')?.remove();
  renderGlass();$('feedback').textContent='Adjust your speed, then hold to pour!';
 }
 function changeSpeed(v){
@@ -205,29 +276,34 @@ function changeSpeed(v){
  $('flowText').innerHTML='POUR SPEED<br><b>'+label+'</b>';
 }
 function startPour(e){
- if(!playing||roundDone||pouring)return;
+ if(!playing||roundDone||pouring||settling)return;
  pouring=true;holdStart=performance.now();
  $('sliderControl').classList.add('pouring');$('stream').classList.add('active');
- $('feedback').textContent='Pouring… release when you reach the target!';
+ $('feedback').textContent='Pouring… release just before the line!';updatePourVisual();
 }
 function stopPour(){
  if(!pouring)return;
- pouring=false;$('sliderControl').classList.remove('pouring');$('stream').classList.remove('active');
+ pouring=false;$('sliderControl').classList.remove('pouring');$('stream').classList.remove('active');updatePourVisual();
  if(!playing||roundDone)return;
- const diff=fill-target;
- if(diff>0){
-  const over=diff;
-  if(over<=4)finishRound('PERFECT POUR!',Math.max(5,Math.round(60+Number($('speed').value)*.7)),true);
-  else if(over<=10)finishRound('A LITTLE OVERFILLED!',Math.max(0,Math.round(35-over*2+Number($('speed').value)*.25)),true);
-  else spill('OVERFLOW! Too much mocktail!');
- }else{
-  const under=target-fill;
-  if(under<=4)finishRound('PERFECT POUR!',Math.max(5,Math.round(60+Number($('speed').value)*.7)),true);
-  else if(under<=12)finishRound('A BIT UNDERFILLED!',Math.max(5,Math.round(35-under*2+Number($('speed').value)*.25)),true);
-  else finishRound('UNDERFILLED!',Math.max(0,Math.round(10-under)),false);
- }
+ // A short finishing trickle: fast pours carry more momentum, but the penalty stays modest.
+ const v=Number($('speed').value);
+ settleAmount=.12+1.8*Math.pow(v/100,2.4);
+ settling=true;
+ $('feedback').textContent='Finishing pour…';
 }
-function finishRound(message,base,success){
+function judgePour(){
+ if(roundDone||!playing)return;
+ const diff=fill-target,abs=Math.abs(diff),speed=Number($('speed').value);
+ if(diff>10){spill('OVERPOUR! Too much mocktail!');return;}
+ let message,base,success;
+ if(abs<=2){message='PERFECT POUR!';base=80;success=true;}
+ else if(abs<=5){message='GREAT POUR!';base=55;success=true;}
+ else if(abs<=10){message='GOOD POUR!';base=30;success=true;}
+ else if(diff>0){message='OVERPOUR!';base=8;success=false;}
+ else{message='UNDERFILLED!';base=Math.max(0,12-abs/3);success=false;}
+ finishRound(message,Math.round(base+speed*.25),success,abs<=2);
+}
+function finishRound(message,base,success,perfect=false){
  if(roundDone)return;roundDone=true;
  const speed=Number($('speed').value);
  const speedBonus=Math.round(speed*.45);
@@ -235,13 +311,14 @@ function finishRound(message,base,success){
  const points=Math.max(0,base+speedBonus+timeBonus);
  score+=points;drinksMade++;
  $('feedback').textContent=`${success?'✓':'•'} ${message} +${points} POINTS`;
+ showResult(message,points,perfect);
  updateStats();
  $('sliderControl').classList.add('disabled');
  setTimeout(()=>{if(playing){if(timeLeft>0)newRound();}},850);
 }
 function spill(message){
  if(roundDone)return;roundDone=true;lives--;spillPenalty++;
- $('feedback').textContent='✕ '+message+' · -1 SPILL';
+ $('feedback').textContent='✕ '+message+' · -1 SPILL';showResult('OVERPOUR!',null);
  updateStats();$('sliderControl').classList.add('disabled');
  if(lives<=0){setTimeout(endGame,600);}
  else setTimeout(()=>{if(playing)newRound();},900);
@@ -253,12 +330,19 @@ function updateStats(){
 function frame(now){
  if(!playing)return;
  if(!last)last=now;const dt=Math.min((now-last)/1000,.05);last=now;
+ if(settling&&!roundDone){
+  // Decelerating tail of the stream after release.
+  const step=Math.min(settleAmount,Math.max(.01,settleAmount*dt*13));
+  fill=Math.min(100,fill+step);settleAmount-=step;
+  renderGlass();
+  if(settleAmount<=.025||fill>=100){settling=false;settleAmount=0;judgePour();}
+ }
  if(pouring&&!roundDone){
   const speed=Number($('speed').value);
-  // 1–100 slider maps to a deliberately wide range: slow is gentle, fast is risky.
-  // Stronger speed curve: the minimum is still controllable, while the maximum fills a glass very quickly.
-  const rate=.5+(speed/100)*3.5;
-  fill+=rate*dt*12;
+  // Nonlinear flow in percentage points per second: 7 at minimum,
+  // ~46 at midpoint, 142 at maximum. The top end is intentionally risky.
+  const flowPerSecond=7+135*Math.pow(speed/100,1.8);
+  fill+=flowPerSecond*dt;
   if(fill>=100){fill=100;renderGlass();spill('THE GLASS OVERFLOWED!');}
   else renderGlass();
  }
@@ -272,10 +356,10 @@ function startGame(){
  newRound();raf=requestAnimationFrame(frame);
  timer=setInterval(()=>{if(!playing)return;timeLeft--;$('time').textContent=timeLeft;if(timeLeft<=0)endGame();},1000);
 }
-function stop(){if(raf)cancelAnimationFrame(raf);clearInterval(timer);raf=null;timer=null;pouring=false;}
+function stop(){if(raf)cancelAnimationFrame(raf);clearInterval(timer);raf=null;timer=null;pouring=false;settling=false;}
 function endGame(){
  playing=false;stop();$('sliderControl').classList.add('disabled');$('startBtn').textContent='START SHIFT';
- $('stream').classList.remove('active');
+ $('stream').classList.remove('active');$('splash').classList.remove('active');
  $('endTitle').textContent='SHIFT COMPLETE!';
  $('endText').textContent=`You made ${drinksMade} drinks, scored ${score} points and had ${spillPenalty} spills. Can you beat your score with a faster pour?`;
  $('overlay').style.display='flex';
@@ -285,7 +369,7 @@ function resetGame(){
  updateStats();$('time').textContent='60';$('startBtn').textContent='START SHIFT';
  $('sliderControl').classList.add('disabled');$('overlay').style.display='none';$('feedback').textContent='Press START SHIFT to begin!';
  $('glassWrap').innerHTML='';$('glassName').textContent='READY?';$('drinkName').textContent='Your next glass is waiting.';
- $('fillText').textContent='0%';$('stream').classList.remove('active');
+ $('fillText').textContent='0%';$('stream').classList.remove('active');$('splash').classList.remove('active');$('stage').querySelector('.result-pop')?.remove();
 }
 const speedSlider=$('speed');
 speedSlider.addEventListener('pointerdown',e=>{
@@ -299,5 +383,6 @@ speedSlider.addEventListener('input',e=>changeSpeed(e.target.value));
 speedSlider.addEventListener('change',()=>{if(!pouring)stopPour();});
 document.addEventListener('pointerup',stopPour);
 document.addEventListener('pointercancel',stopPour);
+window.addEventListener('resize',()=>{if(glass&&drink)renderGlass()});
 changeSpeed(speedSlider.value);resetGame();
 </script></body></html>
