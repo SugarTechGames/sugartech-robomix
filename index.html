@@ -73,16 +73,59 @@ button{font:inherit}
 .hidden{display:none!important}
 @media(max-width:720px){.game{grid-template-columns:1fr}.right{min-height:340px}.lab{min-height:250px}.wrap{padding-top:18px}.panel{padding:16px}}
 @media(max-width:390px){.ingredients{grid-template-columns:repeat(2,1fr)}.top{margin-bottom:18px}}
+
+/* SugarTech Arcade 2.0 — responsive, accessible, tactile */
+:root{color-scheme:dark}button,input{font:inherit}button{touch-action:manipulation}button:focus-visible,input:focus-visible{outline:3px solid #7fffe6;outline-offset:3px}*{-webkit-tap-highlight-color:transparent}body{overscroll-behavior-y:contain} @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.arcade-back{position:fixed;left:12px;top:12px;z-index:30;display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border:1px solid #ffffff35;border-radius:100px;background:#100b20d9;color:#f7e9ff;text-decoration:none;font-size:11px;font-weight:800;backdrop-filter:blur(14px)}
+.arcade-back:hover{border-color:#ff70c5}.arcade-sign{font-size:10px;letter-spacing:.16em;color:#e9bad9;opacity:.75}.arcade-toast{position:fixed;left:50%;top:20%;transform:translate(-50%,-12px);padding:11px 19px;border-radius:999px;border:1px solid #ffffff5c;background:#27143deb;color:#fff;z-index:60;font-size:14px;font-weight:900;pointer-events:none;opacity:0;transition:opacity .16s,transform .16s;box-shadow:0 12px 35px #0009}.arcade-toast.show{opacity:1;transform:translate(-50%,0)}
+
+body{background:radial-gradient(ellipse at 70% -10%,#5a195b 0%,#1b1034 35%,#090816 80%)}.wrap{max-width:1120px;padding-top:66px}.top{margin-bottom:12px}.panel{border-radius:25px;background:linear-gradient(160deg,#211731ee,#120f23ef);border-color:#ffffff20;box-shadow:0 16px 55px #05030e80,inset 0 1px #ffffff14}.game{grid-template-columns:1.06fr .94fr}.ingredient{min-height:84px;border-radius:17px;background:linear-gradient(160deg,#30213d,#171326);border-color:#ffffff24}.ingredient.selected{background:linear-gradient(160deg,#255449,#193a39);border-color:#6fffd2;transform:translateY(-2px)}.ingredient .fruit-icon{width:40px;height:38px}.ingredient b{font-size:12px}.stat{min-width:56px;padding:8px}.stat b{font-size:18px}.lab{min-height:350px;background:radial-gradient(circle at 50% 56%,#60205e65,transparent 55%),repeating-linear-gradient(0deg,transparent 0 39px,#ffffff07 40px),#100d20}.robot{width:178px;height:178px}.glass{width:90px;height:100px}.primary{min-height:48px}.status{font-size:13px}.chip{display:inline-flex;align-items:center;gap:4px}.chip .fruit-icon{width:20px;height:20px}.customer{background:#ffffff08}.sub{color:#e9cce6}@media(max-width:720px){.wrap{padding-top:60px}.game{display:flex;flex-direction:column}.right{min-height:0}.right .lab{min-height:165px}.robot{width:100px;height:100px}.glass{width:54px;height:60px}.panel{padding:13px}.top{margin-bottom:10px}h1{font-size:44px}.sub{margin:6px 0 16px;font-size:12px}.panel-head{gap:6px;flex-wrap:wrap}.stat{padding:5px 6px}.stat small{font-size:8px}.stat b{font-size:16px}.ingredient{min-height:72px}.ingredient .fruit-icon{width:31px;height:29px}.right .panel-head,.right .footer,.right .status,.right .progress{display:none}.lab-caption{margin-top:0}.ingredients{gap:7px}.recipe{margin:10px 0}.customer{padding:10px}.actions{margin-top:9px}}@media(max-width:390px){.ingredients{grid-template-columns:repeat(3,1fr)}.ingredient b{font-size:10px}.stat{min-width:47px}}
+
+/* SugarTech Arcade / V3 visual system */
+:root{--night:#080817;--surface:#15152b;--surface2:#1d1c39;--line:#ffffff20;--fuchsia:#ff4db9;--aqua:#7af8eb;--gold:#ffda88}
+html{color-scheme:dark}body{background:radial-gradient(ellipse 75% 55% at 10% 0%,#3b1d64 0%,transparent 75%),radial-gradient(ellipse 65% 70% at 95% 100%,#152e4b 0%,transparent 80%),#080817!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif!important}
+button{font-family:inherit!important}button:focus-visible,input:focus-visible{outline:3px solid #7af8eb;outline-offset:4px}
+button:not(:disabled){transition:transform .15s,filter .15s,box-shadow .15s}button:not(:disabled):active{transform:scale(.97)!important}
+::selection{background:#ff4db988;color:white}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+
+body:before{opacity:.09;background-size:34px 34px}
+.wrap{width:min(1160px,calc(100% - 28px));padding:22px 0 30px}
+.top{margin-bottom:8px}.brand{font-size:11px;letter-spacing:.22em;color:#eee5ff}.brand-mark{width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,#ff4db9,#8659ff);box-shadow:0 9px 30px #ff4db944;border:0}
+.pill{border-color:#ffffff25;background:#ffffff0b;color:#c9c5e9}
+h1{font-size:clamp(46px,8vw,86px);letter-spacing:-.085em;text-shadow:none;text-align:left;font-weight:950}h1 span{color:#ff69c4}
+.sub{text-align:left;margin:7px 0 23px;color:#c1b9db;font-size:13px}
+.game{grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:18px}
+.panel{background:linear-gradient(165deg,#24203e 0%,#141428 55%,#101323 100%);border:1px solid #ffffff24;border-radius:25px;padding:22px;box-shadow:0 22px 55px #0007,inset 0 1px #ffffff16}
+.panel-head{gap:8px}.eyebrow{color:#9bf5ed;letter-spacing:.17em}
+.stat{background:#080b1c;border:1px solid #ffffff1a;border-radius:12px}.stat b{font-variant-numeric:tabular-nums;color:white;font-size:21px}
+.customer{background:linear-gradient(100deg,#ff4db91c,#8d6aff13);border:1px solid #ff86d63b;padding:16px;border-radius:18px}
+.avatar{background:linear-gradient(145deg,#f94fae,#6a59dc);border-radius:15px}
+.recipe{background:#0a1021;border:1px solid #ffffff19;border-radius:16px}
+.chip{background:#ffffff0c}.chip.done{background:#74ffe11b}
+.ingredients{gap:10px}.ingredient{min-height:94px;background:linear-gradient(155deg,#302a4d,#17162d);border:1px solid #ffffff23;border-radius:16px;box-shadow:inset 0 1px #ffffff13}.ingredient .emoji,.fruit-icon{width:39px;height:39px}.ingredient b{font-size:12px}.ingredient.selected{border-color:#7af8eb;background:linear-gradient(140deg,#14413f,#25234a);box-shadow:0 0 0 2px #7af8eb33}
+.primary{background:linear-gradient(100deg,#ff65bf,#9b72ff);border-radius:15px;color:#180d27;min-height:52px;font-size:14px}.secondary{border-radius:15px}
+.lab{min-height:390px;border-radius:22px;background:radial-gradient(circle at 50% 56%,#4b245e 0%,#211c3b 42%,#0c1429 85%);border:1px solid #ffffff1e}
+.lab:before{width:270px;height:270px;border-color:#74ffe13c;box-shadow:0 0 0 24px #74ffe108,0 0 0 55px #ff4db908}
+.robot{width:205px;height:180px;animation:none!important;transform:none!important;filter:drop-shadow(0 18px 24px #0009)}.robot.mix{animation:robot-work .45s ease-in-out 2 alternate!important}
+@keyframes robot-work{to{transform:translateY(-7px) rotate(-3deg)}}
+.glass{width:90px;height:95px;filter:drop-shadow(0 0 20px #ff53ba77)}.lab-caption{color:#9bf5ed}
+.progress{height:7px;background:#ffffff16}.progress span{background:linear-gradient(90deg,#7af8eb,#ff4db9)}
+.overlay{background:#070915ed}.modal{background:linear-gradient(155deg,#282044,#101526);border:1px solid #ffffff35;border-radius:27px;box-shadow:0 35px 90px #000b}.modal-mark{background:linear-gradient(145deg,#ff4db9,#815dff);border:0}
+@media(max-width:720px){.wrap{padding-top:14px}.game{grid-template-columns:1fr}.right{min-height:unset}.lab{min-height:240px}.robot{width:155px;height:145px}.panel{padding:15px}.ingredient{min-height:78px}.top{margin-bottom:16px}h1{text-align:center;font-size:56px}.sub{text-align:center;margin-bottom:19px}.stat{min-width:59px;padding:7px}.stat b{font-size:18px}}
+@media(max-width:380px){.ingredients{grid-template-columns:repeat(3,1fr)}.ingredient b{font-size:10px}.ingredient{min-height:75px}.customer{padding:11px}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><div class="brand"><div class="brand-mark">✦</div> SUGARTECH</div><div style="display:flex;align-items:center;gap:9px"><button class="music-toggle" id="musicBtn" type="button">♫ MUSIC: ON</button><div class="pill">ARCADE // 01</div></div></div>
+  <div class="top"><div class="brand"><div class="brand-mark">✦</div> SUGARTECH</div><div style="display:flex;align-items:center;gap:9px"><button class="music-toggle" id="musicBtn" type="button">♫ MUSIC: ON</button><div class="pill">ARCADE / 01</div></div></div>
   <h1>ROBO<span>MIX</span></h1>
-  <p class="sub">The robot is ready. Can you mix the perfect mocktail?</p>
+  <p class="sub">Three ingredients. One minute. Endless possibilities.</p>
   <div class="game">
     <section class="panel">
-      <div class="panel-head"><div class="eyebrow">YOUR ORDERS</div><div class="stats"><div class="stat"><small>SCORE</small><b id="score">0</b></div><div class="stat"><small>DRINKS</small><b id="drinks">0</b></div><div class="stat"><small>TIME</small><b id="time">60</b></div></div></div>
+      <div class="panel-head"><div class="eyebrow">YOUR ORDERS</div><div class="stats"><div class="stat"><small>BEST</small><b id="best">0</b></div><div class="stat"><small>COMBO</small><b id="combo">×0</b></div><div class="stat"><small>SCORE</small><b id="score">0</b></div><div class="stat"><small>DRINKS</small><b id="drinks">0</b></div><div class="stat"><small>TIME</small><b id="time">60</b></div></div></div>
       <div class="customer"><div class="avatar" id="customerAvatar">ST</div><div><strong id="customerTitle">A customer is waiting!</strong><p id="customerText">Make the recipe exactly as requested to earn points.</p></div></div>
       <div class="recipe"><div class="recipe-title"><span id="recipeName">FIRST ORDER</span><span id="recipeCount">0 / 3</span></div><div class="recipe-list" id="recipeList"></div></div>
       <p class="ingredients-title">PICK YOUR INGREDIENTS</p>
@@ -136,6 +179,15 @@ button{font:inherit}
 <div class="overlay" id="startOverlay"><div class="modal"><div class="big"><span class="modal-mark">ST</span></div><div class="eyebrow">SUGARTECH ARCADE PRESENTS</div><h2>Ready to <span style="color:#ff4db4">RoboMix</span>?</h2><p>As many customers as you can. Sixty seconds on the clock!<br>Pick three ingredients for each mocktail and earn points for every ingredient you get right.</p><button class="primary" id="startBtn">START MIXING →</button></div></div>
 <div class="overlay hidden" id="endOverlay"><div class="modal"><div class="big" id="endEmoji">★</div><div class="eyebrow">SHIFT COMPLETE</div><h2 id="endTitle">Great mixing!</h2><p id="endText"></p><button class="primary" id="againBtn">PLAY AGAIN ↻</button></div></div>
 <script>
+/* Shared tiny utilities, no network or dependencies. */
+window.SugarArcade={
+ best(key){try{return Number(localStorage.getItem('sugartech.v2.'+key)||0)}catch{return 0}},
+ save(key,score){if(score<=this.best(key))return false;try{localStorage.setItem('sugartech.v2.'+key,String(score))}catch{}return true},
+ buzz(ms=12){if(navigator.vibrate)navigator.vibrate(ms)},
+ toast(msg){let el=document.getElementById('arcadeToast');if(!el){el=document.createElement('div');el.id='arcadeToast';el.className='arcade-toast';document.body.appendChild(el)}el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),650)}
+};
+</script>
+<script>
 const ingredients=[
  {id:"strawberry",name:"Strawberry",color:"#ff477e"},{id:"orange",name:"Orange",color:"#ff9b35"},
  {id:"pineapple",name:"Pineapple",color:"#f4d34f"},{id:"blueberry",name:"Blueberry",color:"#7867ff"},
@@ -154,7 +206,7 @@ const customerRequests=[
 ];
 const recipeNames=["PINK PARADISE","PURPLE SPARK","TROPICAL GLOW","BERRY BLAST","SUNSET SPLASH","MELON MAGIC","CITRUS KISS","PEACHY DREAM","ISLAND FIZZ","STRAWBERRY CLOUD"];
 let currentOrder=null;
-let score=0,drinksMade=0,selected=[],timeLeft=60,timer=null,locked=false,finished=false;
+let score=0,drinksMade=0,selected=[],timeLeft=60,timer=null,locked=false,finished=false,combo=0,gameDeadline=0,roundToken=0;
 function randomItem(list){return list[Math.floor(Math.random()*list.length)]}
 function makeRandomOrder(){
  const shuffled=[...ingredients].sort(()=>Math.random()-.5);
@@ -210,12 +262,14 @@ function renderOrder(){
  $("recipeCount").textContent="0 / 3";
  $("recipeList").innerHTML=r.items.map(id=>`<span class="chip" data-recipe="${id}">${ingredientIcon(id)} ${ingredientById(id).name}</span>`).join("");
  $("ingredients").querySelectorAll("button").forEach(b=>{b.disabled=false;b.classList.remove("selected")});
- $("mixBtn").disabled=true;$("status").className="status";$("status").textContent="Choose 3 ingredients, then press Mix it! Each correct match earns points.";
+ $("mixBtn").disabled=true;$("status").className="status";$("status").textContent="Choose any three ingredients. Tap a selected ingredient to undo.";
  $("labCaption").textContent="AWAITING INGREDIENTS";$("glass").innerHTML=mocktailIcon();$("progressBar").style.width="0%";
 }
 function toggleIngredient(id){
- if(locked||finished||selected.includes(id)||selected.length>=3)return;
- selected.push(id);
+ if(locked||finished)return;
+ if(selected.includes(id)){selected=selected.filter(x=>x!==id);const b=$("ingredients").querySelector(`[data-id="${id}"]`);b.classList.remove("selected");$("recipeList").querySelectorAll(".chip").forEach(c=>c.classList.toggle("done",selected.includes(c.dataset.recipe)));$("recipeCount").textContent=selected.length+" / 3";$("mixBtn").disabled=selected.length!==3;$("progressBar").style.width=(selected.length/3*100)+"%";return;}
+ if(selected.length>=3)return;
+ selected.push(id);SugarArcade.buzz(8);
  const btn=$("ingredients").querySelector(`[data-id="${id}"]`);btn.classList.add("selected");
  $("recipeList").querySelectorAll(".chip").forEach(chip=>{if(selected.includes(chip.dataset.recipe))chip.classList.add("done")});
  $("recipeCount").textContent=selected.length+" / 3";
@@ -223,28 +277,29 @@ function toggleIngredient(id){
 }
 function clearSelection(){if(locked)return;selected=[];$("ingredients").querySelectorAll("button").forEach(b=>b.classList.remove("selected"));$("recipeList").querySelectorAll(".chip").forEach(c=>c.classList.remove("done"));$("recipeCount").textContent="0 / 3";$("mixBtn").disabled=true;$("progressBar").style.width="0%"}
 function mix(){
- if(selected.length!==3||locked||finished)return;locked=true;$("mixBtn").disabled=true;$("robot").classList.add("mix");$("labCaption").textContent="ROBOT MIXING...";$("status").textContent="Whirr... pour... mixing...";$("glass").innerHTML=mocktailIcon();
+ if(selected.length!==3||locked||finished)return;
+ locked=true;const token=++roundToken;
+ $("mixBtn").disabled=true;$("robot").classList.add("mix");$("labCaption").textContent="MIXING YOUR MOCKTAIL";
+ const correct=selected.filter(id=>currentOrder.items.includes(id)).length;
+ combo=correct===3?combo+1:0;
+ const bonus=correct===3?Math.min(100,(combo-1)*10):0;
+ const points=[0,30,60,100][correct]+bonus;
+ score+=points;drinksMade++;
+ $("score").textContent=score;$("drinks").textContent=drinksMade;$("combo").textContent="×"+combo;
+ if(SugarArcade.save('robomix',score))$("best").textContent=score;
+ if(correct===3){SugarArcade.buzz(20);SugarArcade.toast(combo>1?`PERFECT ×${combo}  +${points}`:`PERFECT MIX! +${points}`)}
+ else SugarArcade.toast(`${correct}/3 CORRECT  +${points}`);
+ $("status").className="status "+(correct===3?"good":correct===0?"bad":"");
+ $("status").textContent=correct===3?"Perfect recipe! The robot is on a roll.":`${correct} of 3 ingredients matched. Next customer incoming!`;
  setTimeout(()=>{
-  $("robot").classList.remove("mix");$("glass").innerHTML=mocktailIcon();$("labCaption").textContent="MOCKTAIL COMPLETE!";
-  const correctCount=selected.filter(id=>currentOrder.items.includes(id)).length;
-  const points=[0,30,60,100][correctCount];
-  score+=points;drinksMade++;$("score").textContent=score;$("drinks").textContent=drinksMade;
-  if(correctCount===3){
-   $("status").className="status good";
-   $("status").textContent="Perfect recipe! 3/3 ingredients correct — +100 points. Your customer loves it!";
-  }else if(correctCount>0){
-   $("status").className="status good";
-   $("status").textContent=`Nice try! ${correctCount}/3 ingredients correct — +${points} points. Keep mixing!`;
-  }else{
-   $("status").className="status bad";
-   $("status").textContent="No matching ingredients this time — 0 points. The next customer is waiting!";
-  }
-  $("ingredients").querySelectorAll("button").forEach(b=>b.disabled=true);
-  setTimeout(()=>{locked=false;if(timeLeft<=0){endGame();return}currentOrder=makeRandomOrder();renderOrder()},850);
- },1100);
+  if(token!==roundToken)return;
+  $("robot").classList.remove("mix");
+  if(finished||performance.now()>=gameDeadline){endGame();return}
+  locked=false;currentOrder=makeRandomOrder();renderOrder();
+ },380);
 }
 function endGame(){
- finished=true;clearInterval(timer);
+ if(finished)return;finished=true;roundToken++;clearInterval(timer);
  $("endEmoji").textContent=drinksMade>=10?"★":drinksMade>=5?"✦":"ST";
  $("endTitle").textContent=drinksMade>=10?"Master Mixologist!":drinksMade>=5?"Nice mixing!":"Shift complete!";
  $("endText").innerHTML=`You made <b style="color:#ff78c9">${drinksMade} drink${drinksMade===1?"":"s"}</b> and scored <b style="color:#ff78c9">${score} points</b>.<br>${drinksMade>=10?"Incredible speed! The SugarTech robot is impressed.":drinksMade>=5?"Great work keeping the orders moving!":"The robot is ready for another shift. See how many more you can mix!"}`;
@@ -252,10 +307,10 @@ function endGame(){
  stopMusic();
 }
 function startGame(){
- score=0;drinksMade=0;timeLeft=60;finished=false;locked=false;currentOrder=makeRandomOrder();$("score").textContent="0";$("drinks").textContent="0";$("time").textContent="60";
+ roundToken++;score=0;combo=0;drinksMade=0;timeLeft=60;finished=false;locked=false;gameDeadline=performance.now()+60000;$("combo").textContent="×0";$("best").textContent=SugarArcade.best("robomix");currentOrder=makeRandomOrder();$("score").textContent="0";$("drinks").textContent="0";$("time").textContent="60";
  $("startOverlay").classList.add("hidden");$("endOverlay").classList.add("hidden");renderOrder();
  if(musicEnabled)startMusic();
- clearInterval(timer);timer=setInterval(()=>{timeLeft--;$("time").textContent=timeLeft;if(timeLeft<=0){if(!locked)endGame();else clearInterval(timer)}},1000);
+ clearInterval(timer);timer=setInterval(()=>{timeLeft=Math.max(0,Math.ceil((gameDeadline-performance.now())/1000));$("time").textContent=timeLeft;if(timeLeft<=0)endGame()},100);
 }
 
 // Original lightweight arcade soundtrack generated with Web Audio (no external files).
@@ -313,5 +368,7 @@ $("startBtn").addEventListener("click",startGame);$("againBtn").addEventListener
 $("clearBtn").addEventListener("click",clearSelection);$("mixBtn").addEventListener("click",mix);
 renderIngredients();
 </script>
+<a class="arcade-back" href="javascript:history.back()" aria-label="Go back to SugarTech website">‹ BACK</a>
+
 </body>
 </html>
